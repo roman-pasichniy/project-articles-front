@@ -1,0 +1,38 @@
+.footer {
+  padding-block: 24px;
+  background-color: var(--green-darker);
+  color: var(--white);
+}
+
+.inner {
+  display: grid;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.navigation {
+  display: flex;
+  gap: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .navigation {
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .footer {
+    padding-block: 32px;
+  }
+}

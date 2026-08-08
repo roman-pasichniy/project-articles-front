@@ -1,0 +1,61 @@
+.header {
+  background-color: var(--white);
+}
+
+.inner {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  color: var(--green);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.navigation {
+  display: none;
+}
+
+.menuButton {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-content: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  color: var(--green-darker);
+}
+
+.menuButton span {
+  width: 20px;
+  height: 1px;
+  background-color: currentColor;
+}
+
+@media screen and (min-width: 768px) {
+  .inner {
+    min-height: 72px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .inner {
+    min-height: 80px;
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 14px;
+  }
+
+  .menuButton {
+    display: none;
+  }
+}

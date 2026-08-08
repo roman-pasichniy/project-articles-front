@@ -1,0 +1,2 @@
+.card { display: grid; gap: 12px; }
+.image { min-height: 220px; border-radius: var(--radius-sm); background: var(--light-green); }

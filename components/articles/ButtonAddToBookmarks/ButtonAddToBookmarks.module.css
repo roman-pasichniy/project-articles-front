@@ -1,0 +1,1 @@
+.button { min-height: 40px; padding-inline: 20px; border: 1px solid var(--green-darker); border-radius: var(--radius-pill); background: transparent; color: var(--green-darker); }
