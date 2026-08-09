@@ -13,8 +13,14 @@ export default function Footer() {
             © 2026 Harmoniq. All rights reserved.
           </p>
           <nav className={styles.navigation} aria-label="Навігація у футері">
-            <Link href="/articles">Articles</Link>
-            <Link href="/profile">Account</Link>
+            <ul className={styles.navList}>
+              <li>
+                <Link href="/articles">Articles</Link>
+              </li>
+              <li>
+                <Link href="/profile">Account</Link>
+              </li>
+            </ul>
           </nav>
         </div>
       </Container>
