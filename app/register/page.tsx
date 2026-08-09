@@ -1,5 +1,6 @@
 import RegisterForm from "@/components/auth/RegisterForm/RegisterForm";
 import Container from "@/components/common/Container/Container";
+import Logo from "@/components/common/Logo/Logo";
 import styles from "./page.module.css";
 
 export default function RegisterPage() {
@@ -7,7 +8,7 @@ export default function RegisterPage() {
     <section className={styles.main}>
       <Container>
         <div className={styles.card}>
-          <p className={styles.logo}>Harmoniq</p>
+          <Logo />
           <h1 className={styles.title}>Register</h1>
           <RegisterForm />
         </div>
