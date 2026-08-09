@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 
 export default function LoginPage() {
   return (
-    <main className={styles.main}>
+    <section className={styles.main}>
       <Container>
         <div className={styles.card}>
           <p className={styles.logo}>Harmoniq</p>
@@ -12,6 +12,6 @@ export default function LoginPage() {
           <LoginForm />
         </div>
       </Container>
-    </main>
+    </section>
   );
 }
