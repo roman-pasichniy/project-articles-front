@@ -1,13 +1,12 @@
 import Container from "@/components/common/Container/Container";
 import Link from "next/link";
-import styles from "./Header.module.css";
 
 import css from "./Header.module.css";
 import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
 
 export default function Header() {
   return (
-    <header className={styles.header}>
+    <header className={css.header}>
       <Container>
         {/* Логотип */}
         <Link href="/" aria-label="Home" className={css.logo}>
