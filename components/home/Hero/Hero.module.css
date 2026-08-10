@@ -1,62 +1,197 @@
 .hero {
-  padding-block: 32px 48px;
+  padding-block: 0 48px;
 }
 
 .content {
-  display: grid;
-  gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.image {
+  background-image: url("/images/hero/hero-image-mob.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  width: 100%;
+  height: 320px;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
-  max-width: 620px;
-  font-size: clamp(40px, 12vw, 64px);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  width: 373px;
+  max-width: calc(100vw - 2px);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--green-darker);
 }
 
 .title em {
-  font-family: var(--second-family);
-  font-weight: 400;
+  font-family: "Merienda", sans-serif;
+  font-style: normal;
 }
 
 .actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 24px;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 30px;
 }
 
-.imagePlaceholder {
-  display: grid;
-  min-height: 280px;
-  place-items: center;
-  border-radius: var(--radius-sm);
-  background-color: var(--light-green);
+.primaryButton,
+.outlineButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 57px;
+  width: 100%;
+  border-radius: 64px;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.primaryButton {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.outlineButton {
+  border: 1px solid var(--green-darker);
+  background-color: transparent;
   color: var(--green-darker);
 }
 
-@media screen and (min-width: 768px) {
-  .hero {
-    padding-block: 48px 64px;
-  }
-
-  .imagePlaceholder {
-    min-height: 400px;
-  }
+.primaryButton:hover {
+  background-color: var(--green-darker);
 }
 
-@media screen and (min-width: 1440px) {
+.outlineButton:hover {
+  background-color: var(--green-darker);
+  color: var(--white);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media screen and (min-width: 768px) {
   .hero {
-    padding-block: 64px 96px;
+    padding-block: 24px 64px;
   }
 
   .content {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: center;
-    gap: 48px;
+    position: relative;
+    height: 383px;
   }
 
-  .imagePlaceholder {
-    min-height: 520px;
+  .copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 430px;
+    height: 383px;
+  }
+
+  .title {
+    max-width: 430px;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .primaryButton,
+  .outlineButton {
+    width: 249px;
+  }
+
+  .image {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    width: 430px;
+    height: 383px;
+    background-image: url("/images/hero/hero-image-tab.webp");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media screen and (min-width: 1440px) {
+  .hero {
+    padding-block: 0 96px;
+  }
+
+  .content {
+    position: relative;
+    height: 562px;
+  }
+
+  .copy {
+    position: relative;
+    z-index: 2;
+
+    width: 599px;
+  }
+
+  .title {
+    width: 599px;
+    max-width: 599px;
+
+    font-size: 92px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .primaryButton,
+  .outlineButton {
+    width: 184px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .image {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 460px;
+    width: 805px;
+    height: 562px;
+    background-image: url("/images/hero/hero-image-dsk.webp");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 32px 32px 32px 0;
   }
 }

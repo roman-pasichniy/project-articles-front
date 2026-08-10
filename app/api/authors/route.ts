@@ -21,7 +21,7 @@ export async function GET(request: Request) {
 
     // 3. Повертаємо порцію авторів назад у фронтенд
     return NextResponse.json(pageData);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Simulation error" }, { status: 500 });
   }
 }
