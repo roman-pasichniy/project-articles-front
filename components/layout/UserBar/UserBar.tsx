@@ -33,14 +33,17 @@ export default function UserBar({
         <span className={styles.userName}>{name}</span>
       </Link>
 
-      {/* Кнопка Exit */}
+      <span className={styles.divider} aria-hidden="true"></span>
+
       <button
         type="button"
         onClick={onLogoutClick}
         className={styles.exitBtn}
         aria-label="Exit"
       >
-        <span>Exit</span>
+        <svg className={styles.exitIcon}>
+          <use href="/icons/sprite.svg#icon-logout"></use>
+        </svg>
       </button>
     </div>
   );

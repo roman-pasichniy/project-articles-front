@@ -20,6 +20,9 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   // Отримуємо стан та метод очищення
   const { isAuthenticated, user, clearIsAuthenticated } = useAuthStore();
 
+  const isAuthTest = true;
+  const userTest = { name: "Maryana", avatarUrl: "" };
+
   // Логіка підтвердження виходу
   const handleConfirmLogout = async () => {
     try {
@@ -47,7 +50,8 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
 
   return (
     <div className={css.authNav}>
-      {isAuthenticated ? (
+      {/* {isAuthenticated ? ( */}
+      {isAuthTest ? (
         <>
           {/* Створити статтю */}
           <Link
@@ -60,8 +64,10 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
 
           {/* UserBar з даними залогіненого юзера */}
           <UserBar
-            name={user?.name}
-            avatarUrl={user?.avatarUrl}
+            // name={user?.name}
+            name={userTest.name}
+            // avatarUrl={user?.avatarUrl}
+            avatarUrl={userTest.avatarUrl}
             onLogoutClick={() => setIsLogoutOpen(true)}
           />
 
