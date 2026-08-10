@@ -9,8 +9,8 @@ const manrope = Manrope({
 });
 
 const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
   subsets: ["latin"],
+  variable: "--font-dm-sans",
 });
 
 const notoSans = Noto_Sans({
@@ -24,11 +24,15 @@ const merienda = Merienda({
 });
 
 export const metadata: Metadata = {
-  title: "harmoniq",
-  description: "Find your harmony in community",
+  title: "Harmoniq",
+  description: "Платформа для публікацій про баланс та well-being.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+type RootLayoutProps = Readonly<{
+  children: ReactNode;
+}>;
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="uk"
