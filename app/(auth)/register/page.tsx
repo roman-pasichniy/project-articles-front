@@ -6,12 +6,9 @@ export default function RegisterPage() {
   return (
     <main className={styles.main}>
       <Container>
-        <div className={styles.card}>
-          <p className={styles.logo}>Harmoniq</p>
-          <h1 className={styles.title}>Register</h1>
-          <RegisterForm />
-        </div>
+        <RegisterForm />
       </Container>
     </main>
   );
 }
+
