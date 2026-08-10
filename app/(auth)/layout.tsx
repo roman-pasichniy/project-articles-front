@@ -12,9 +12,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
     <div className={styles.page}>
       <Header />
 
-      <div className={styles.content}>
-        {children}
-      </div>
+      <div className={styles.content}>{children}</div>
 
       <Footer />
     </div>
