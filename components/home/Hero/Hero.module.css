@@ -152,7 +152,7 @@
 
 @media screen and (min-width: 1440px) {
   .hero {
-    padding-block: 0 96px;
+    padding-block: 0px 192px;
   }
 
   .content {
@@ -163,14 +163,9 @@
   }
 
   .copy {
-    width: 599px;
     flex: 0 0 599px;
-
-    height: 562px;
-
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
 
   .title {
@@ -185,25 +180,27 @@
     flex-direction: row;
     align-items: center;
     gap: 16px;
-    margin-top: 32px;
   }
 
   .primaryButton,
   .outlineButton {
-    width: 138px;
+    width: 184px;
+    font-weight: 700;
+    font-size: 18px;
   }
 
   .image {
     position: absolute;
-    top: 0;
+    top: 0px;
     right: 0;
+
     width: 805px;
     height: 562px;
 
     background-image: url("/images/hero/hero-image-dsk.webp");
     background-repeat: no-repeat;
-    background-position: center;
     background-size: cover;
+    background-position: center;
 
     border-radius: 32px 32px 32px 0;
   }
