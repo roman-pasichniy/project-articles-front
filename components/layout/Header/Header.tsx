@@ -1,3 +1,4 @@
+import Logo from "@/components/common/Logo/Logo";
 import Container from "@/components/common/Container/Container";
 import Link from "next/link";
 import styles from "./Header.module.css";
@@ -7,9 +8,7 @@ export default function Header() {
     <header className={styles.header}>
       <Container>
         <div className={styles.inner}>
-          <Link className={styles.logo} href="/" aria-label="Harmoniq — головна">
-            Harmoniq
-          </Link>
+          <Logo />
 
           <nav className={styles.navigation} aria-label="Основна навігація">
             <Link href="/">Home</Link>
@@ -18,7 +17,11 @@ export default function Header() {
             <Link href="/login">Log in</Link>
           </nav>
 
-          <button className={styles.menuButton} type="button" aria-label="Відкрити меню">
+          <button
+            className={styles.menuButton}
+            type="button"
+            aria-label="Відкрити меню"
+          >
             <span />
             <span />
             <span />
