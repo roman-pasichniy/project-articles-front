@@ -6,9 +6,7 @@ export default function LoginPage() {
   return (
     <main className={styles.main}>
       <Container>
-        <div className={styles.card}>
-          <p className={styles.logo}>Harmoniq</p>
-          <h1 className={styles.title}>Log in</h1>
+        <div className={styles.loginWrapper}>
           <LoginForm />
         </div>
       </Container>
