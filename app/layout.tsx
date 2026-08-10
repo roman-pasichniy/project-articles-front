@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { DM_Sans, Manrope, Noto_Sans } from "next/font/google";
-import type { ReactNode } from "react";
-import Footer from "@/components/layout/Footer/Footer";
-import Header from "@/components/layout/Header/Header";
+import { DM_Sans, Manrope, Noto_Sans, Merienda} from "next/font/google";
 import { QueryProvider } from "@/providers/QueryProvider";
 import "./globals.css";
 
 const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
   variable: "--font-manrope",
+  subsets: ["latin", "latin-ext"],
 });
 
 const dmSans = DM_Sans({
@@ -17,8 +14,13 @@ const dmSans = DM_Sans({
 });
 
 const notoSans = Noto_Sans({
-  subsets: ["latin", "cyrillic"],
   variable: "--font-noto-sans",
+  subsets: ["latin", "latin-ext"],
+});
+
+const merienda = Merienda({
+  variable: "--font-merienda",
+  subsets: ["latin", "latin-ext"],
 });
 
 export function generateMetadata(): Metadata {
@@ -66,15 +68,12 @@ type RootLayoutProps = Readonly<{
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="uk">
-      <body
-        className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable}`}
-      >
-        <Header />
-        <main>
-          <QueryProvider>{children}</QueryProvider>
-        </main>
-        <Footer />
+    <html
+      lang="uk"
+      className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable} ${merienda.variable}`}
+    >
+      <body>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
