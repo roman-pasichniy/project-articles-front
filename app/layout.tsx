@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Manrope, Noto_Sans } from "next/font/google";
 import { QueryProvider } from "@/providers/QueryProvider";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -31,6 +32,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         <QueryProvider>{children}</QueryProvider>
+
+        <Toaster />
       </body>
     </html>
   );
