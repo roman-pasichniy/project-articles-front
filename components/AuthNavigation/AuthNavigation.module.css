@@ -1,0 +1,75 @@
+/* Базові стилі для мобільних екранів */
+.authNav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.loginLink,
+.userLink {
+  color: #2d4038;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.loginLink:hover,
+.userLink:hover {
+  color: #549179;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #549179;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  height: 46px;
+  padding: 0 20px;
+  border-radius: 64px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.actionBtn:hover {
+  background-color: #437562;
+}
+
+.logoutBtn {
+  background: transparent;
+  border: none;
+  color: #d9534f; /* Червонуватий колір для кнопки виходу */
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.logoutBtn:hover {
+  opacity: 0.8;
+}
+
+/* Перелаштування в горизонтальний ряд на десктопах */
+@media (min-width: 1024px) {
+  .authNav {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: auto;
+  }
+
+  .loginLink,
+  .userLink {
+    font-size: 14px;
+  }
+
+  .logoutBtn {
+    font-size: 14px;
+  }
+}

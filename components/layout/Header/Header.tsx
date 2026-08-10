@@ -2,28 +2,43 @@ import Container from "@/components/common/Container/Container";
 import Link from "next/link";
 import styles from "./Header.module.css";
 
+import css from "./Header.module.css";
+import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
+
 export default function Header() {
   return (
     <header className={styles.header}>
       <Container>
-        <div className={styles.inner}>
-          <Link className={styles.logo} href="/" aria-label="Harmoniq — головна">
-            Harmoniq
-          </Link>
+        {/* Логотип */}
+        <Link href="/" aria-label="Home" className={css.logo}>
+          harmoniq
+        </Link>
 
-          <nav className={styles.navigation} aria-label="Основна навігація">
-            <Link href="/">Home</Link>
-            <Link href="/articles">Articles</Link>
-            <Link href="/authors">Creators</Link>
-            <Link href="/login">Log in</Link>
-          </nav>
+        {/* Основна навігація */}
+        <nav aria-label="Main Navigation">
+          <ul className={css.navigation}>
+            <li>
+              <Link href="/" className={css.navLink}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/articles" className={css.navLink}>
+                Articles
+              </Link>
+            </li>
+            <li>
+              <Link href="/authors" className={css.navLink}>
+                Creators
+              </Link>
+            </li>
 
-          <button className={styles.menuButton} type="button" aria-label="Відкрити меню">
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
+            {/* Компонент авторизації / профілю */}
+            <li className={css.authItem}>
+              <AuthNavigation />
+            </li>
+          </ul>
+        </nav>
       </Container>
     </header>
   );
