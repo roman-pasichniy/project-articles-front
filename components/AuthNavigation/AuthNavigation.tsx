@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./AuthNavigation.module.css";
+import UserBar from "../layout/UserBar/UserBar";
+import LogoutModal from "../layout/LogoutModal/LogoutModal";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
@@ -11,28 +14,34 @@ interface AuthNavigationProps {
 
 export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   const router = useRouter();
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Отримуємо стан та метод очищення зі стору Zustand
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const clearIsAuthenticated = useAuthStore(
-    (state) => state.clearIsAuthenticated
-  );
+  // Отримуємо стан та метод очищення
+  const { isAuthenticated, user, clearIsAuthenticated } = useAuthStore();
 
-  // Обробка виходу з акаунту
-  const handleLogout = async () => {
+  // Логіка підтвердження виходу
+  const handleConfirmLogout = async () => {
     try {
-      // Якщо у вас є API для логауту, викликаємо його сюди (наприклад: await logoutApi())
+      setIsLoading(true);
 
-      // Очищаємо стан у Zustand
+      // 1. Очищаємо Zustand стор
       clearIsAuthenticated();
 
-      if (onLinkClick) onLinkClick();
+      // 2. Закриваємо модалку
+      setIsLogoutOpen(false);
 
-      // Редірект на головну та оновлення серверних даних
+      if (onLinkClick) {
+        onLinkClick();
+      }
+
+      // 3. Редірект на головну
       router.push("/");
       router.refresh();
     } catch (error) {
       console.error("Logout failed:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -40,7 +49,7 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
     <div className={css.authNav}>
       {isAuthenticated ? (
         <>
-          {/* Секція для авторизованого користувача */}
+          {/* Створити статтю */}
           <Link
             href="/articles/new"
             onClick={onLinkClick}
@@ -49,21 +58,24 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
             Create an article
           </Link>
 
-          <Link href="/profile" onClick={onLinkClick} className={css.userLink}>
-            My profile
-          </Link>
+          {/* UserBar з даними залогіненого юзера */}
+          <UserBar
+            name={user?.name}
+            avatarUrl={user?.avatarUrl}
+            onLogoutClick={() => setIsLogoutOpen(true)}
+          />
 
-          <button
-            type="button"
-            onClick={handleLogout}
-            className={css.logoutBtn}
-          >
-            Log out
-          </button>
+          {/* Ваша модалка виходу */}
+          <LogoutModal
+            isOpen={isLogoutOpen}
+            isLoading={isLoading}
+            onClose={() => setIsLogoutOpen(false)}
+            onConfirm={handleConfirmLogout}
+          />
         </>
       ) : (
         <>
-          {/* Секція для неавторизованого користувача */}
+          {/* Неавторизований стан */}
           <Link href="/login" onClick={onLinkClick} className={css.loginLink}>
             Log in
           </Link>

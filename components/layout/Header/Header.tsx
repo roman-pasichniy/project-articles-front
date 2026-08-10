@@ -24,7 +24,7 @@ export default function Header() {
             </li>
             <li>
               <Link href="/articles" className={css.navLink}>
-                Articles
+                + Articles
               </Link>
             </li>
             <li>
@@ -39,6 +39,8 @@ export default function Header() {
             </li>
           </ul>
         </nav>
+        {/* 2. Вставляємо MobileMenu тут
+        <MobileMenu /> */}
       </Container>
     </header>
   );
