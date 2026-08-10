@@ -70,7 +70,7 @@ export default function Modal({
           onClick={onClose}
           aria-label="Закрити модальне вікно"
         >
-          ×
+          x
         </button>
         {children}
       </div>
