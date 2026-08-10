@@ -1,5 +1,7 @@
-import Button from "@/components/common/Button/Button";
+import Link from "next/link";
+
 import Container from "@/components/common/Container/Container";
+
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -7,17 +9,28 @@ export default function Hero() {
     <section className={styles.hero}>
       <Container>
         <div className={styles.content}>
+          <div className={styles.image} aria-hidden="true" />
+
           <div className={styles.copy}>
             <h1 className={styles.title}>
               Find your <em>harmony</em> in community
             </h1>
+
             <div className={styles.actions}>
-              <Button>Go to Articles</Button>
-              <Button variant="outline">Register</Button>
+              <Link
+                href="#popular-articles"
+                className={styles.primaryButton}
+              >
+                Go to Articles
+              </Link>
+
+              <Link
+                href="/register"
+                className={styles.outlineButton}
+              >
+                Register
+              </Link>
             </div>
-          </div>
-          <div className={styles.imagePlaceholder} aria-hidden="true">
-            Hero image
           </div>
         </div>
       </Container>
