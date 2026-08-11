@@ -44,6 +44,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body > main {
+  flex: 1;
+}
+
 *,
 *::before,
 *::after {
@@ -81,4 +85,34 @@ button {
 ul,
 ol {
   list-style: none;
+}
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 3px;
+}
+
+:where(a, button) {
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease,
+    opacity 150ms ease;
+}
+
+@media (hover: hover) {
+  a:hover,
+  button:not(:disabled):hover {
+    opacity: 0.75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

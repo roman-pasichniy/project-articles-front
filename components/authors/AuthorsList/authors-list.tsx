@@ -1,4 +1,4 @@
-import { IAuthor } from "@/lib/query/useAuthors";
+import { IAuthor } from "@/types/author";
 import AuthorsItem from "../AuthorsItem/authors-item";
 import styles from "./authors-list.module.css";
 
@@ -8,22 +8,27 @@ type AuthorsListProps = {
   loadedBeforeCount: number;
 };
 
-export default function AuthorsList({ authors, newItemsRef, loadedBeforeCount }: AuthorsListProps) {
+export default function AuthorsList({
+  authors,
+  newItemsRef,
+  loadedBeforeCount,
+}: AuthorsListProps) {
   return (
     <ul className={styles.list}>
       {authors.map((author, index) => {
         // Визначаємо перший елемент з кожної нової завантаженої порції
-        const isFirstOfNewBatch = index === loadedBeforeCount && loadedBeforeCount > 0;
+        const isFirstOfNewBatch =
+          index === loadedBeforeCount && loadedBeforeCount > 0;
 
         return (
           // Використовуємо display: contents, щоб повісити ref для скролу.
           // Цей div не рендериться як видимий блок у DOM і не ламає CSS Grid (.list) від тімліда.
-          <div 
-            key={author.id} 
-            ref={isFirstOfNewBatch ? newItemsRef : null} 
+          <div
+            key={author.id}
+            ref={isFirstOfNewBatch ? newItemsRef : null}
             style={{ display: "contents" }}
           >
-            <AuthorsItem 
+            <AuthorsItem
               id={author.id}
               name={author.name}
               avatarUrl={author.avatarUrl}
