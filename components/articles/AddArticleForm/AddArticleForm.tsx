@@ -117,7 +117,7 @@ export default function AddArticleForm() {
             )}
           </div>
 
-          <label className={styles.field}>
+          <label className={`${styles.field} ${styles.titleField}`}>
             Title
             <Field
               type="text"
@@ -132,7 +132,7 @@ export default function AddArticleForm() {
             />
           </label>
 
-          <div className={styles.field}>
+          <div className={`${styles.field} ${styles.descriptionField}`}>
             <Field
               as="textarea"
               name="description"
