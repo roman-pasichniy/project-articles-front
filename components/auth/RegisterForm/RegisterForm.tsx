@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useState } from "react";
 import styles from "./RegisterForm.module.css";
 
 interface RegisterFormValues {
@@ -42,20 +43,15 @@ const validationSchema = Yup.object({
 });
 
 export default function RegisterForm() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+
   const handleSubmit = async (values: RegisterFormValues) => {
     console.log(values);
   };
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>Register</h1>
-
-      <p className={styles.description}>
-        Join our community of mindfulness
-        <br />
-        and wellbeing!
-      </p>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -63,6 +59,15 @@ export default function RegisterForm() {
       >
         {({ isSubmitting }) => (
           <Form className={styles.form}>
+            <h1 className={styles.title}>Register</h1>
+
+            <p className={styles.description}>
+              Join our community of mindfulness
+              <br />
+              and wellbeing!
+            </p>
+
+            {/* NAME */}
             <div className={styles.field}>
               <label htmlFor="name">Enter your name</label>
 
@@ -81,6 +86,7 @@ export default function RegisterForm() {
               />
             </div>
 
+            {/* EMAIL */}
             <div className={styles.field}>
               <label htmlFor="email">Enter your email address</label>
 
@@ -99,16 +105,35 @@ export default function RegisterForm() {
               />
             </div>
 
+            {/* PASSWORD */}
             <div className={styles.field}>
               <label htmlFor="password">Create a strong password</label>
 
-              <Field
-                id="password"
-                name="password"
-                type="password"
-                placeholder="********"
-                className={styles.input}
-              />
+              <div className={styles.passwordWrapper}>
+                <Field
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="********"
+                  className={styles.input}
+                />
+
+                <button
+                  type="button"
+                  className={styles.passwordButton}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <svg>
+                    <use
+                      href={
+                        showPassword
+                          ? "#icon-eye-open"
+                          : "#icon-eye-closed"
+                      }
+                    ></use>
+                  </svg>
+                </button>
+              </div>
 
               <ErrorMessage
                 name="password"
@@ -117,16 +142,37 @@ export default function RegisterForm() {
               />
             </div>
 
+            {/* REPEAT PASSWORD */}
             <div className={styles.field}>
               <label htmlFor="repeatPassword">Repeat your password</label>
 
-              <Field
-                id="repeatPassword"
-                name="repeatPassword"
-                type="password"
-                placeholder="********"
-                className={styles.input}
-              />
+              <div className={styles.passwordWrapper}>
+                <Field
+                  id="repeatPassword"
+                  name="repeatPassword"
+                  type={showRepeatPassword ? "text" : "password"}
+                  placeholder="********"
+                  className={styles.input}
+                />
+
+                <button
+                  type="button"
+                  className={styles.passwordButton}
+                  onClick={() =>
+                    setShowRepeatPassword(!showRepeatPassword)
+                  }
+                >
+                  <svg>
+                    <use
+                      href={
+                        showRepeatPassword
+                          ? "#icon-eye-open"
+                          : "#icon-close"
+                      }
+                    ></use>
+                  </svg>
+                </button>
+              </div>
 
               <ErrorMessage
                 name="repeatPassword"
@@ -135,6 +181,7 @@ export default function RegisterForm() {
               />
             </div>
 
+            {/* SUBMIT */}
             <button
               type="submit"
               className={styles.submitButton}
@@ -142,16 +189,17 @@ export default function RegisterForm() {
             >
               Create account
             </button>
+
+            {/* LOGIN */}
+            <p className={styles.loginText}>
+              Already have an account?{" "}
+              <Link href="/login" className={styles.loginLink}>
+                Log in
+              </Link>
+            </p>
           </Form>
         )}
       </Formik>
-
-      <p className={styles.loginText}>
-        Already have an account?{" "}
-        <Link href="/login" className={styles.loginLink}>
-          Log in
-        </Link>
-      </p>
     </div>
   );
 }

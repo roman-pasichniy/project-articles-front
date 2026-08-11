@@ -48,6 +48,10 @@
   margin-bottom: 16px;
 }
 
+.field:last-child {
+  margin-bottom: 0;
+}
+
 .label {
   font-family: var(--font-family);
   font-size: 12px;
@@ -160,7 +164,7 @@
 
   width: 100%;
   height: 38px;
-  margin-top: 4px;
+  margin-top: 27px;
 
   border: none;
   border-radius: var(--radius-pill);
@@ -227,10 +231,6 @@
     padding: 48px 32px;
     margin: 0 auto;
   }
-
-  .field {
-    margin-bottom: 16px;
-  }
 }
 
 /* =========================
@@ -239,41 +239,8 @@
 
 @media screen and (min-width: 1440px) {
   .form {
-  width: 392px;
-  height: 100%;
-  padding: 48px 32px;
-  box-sizing: border-box;
-
-  border-radius: 32px;
-  background-color: var(--light-green);
-
-  display: flex;
-  flex-direction: column;
-  }
-
-  .title {
-    margin-bottom: 20px;
-    font-size: 32px;
-  }
-
-  .description {
-    margin-bottom: 24px;
-    font-size: 16px;
-  }
-
-  .field {
-    gap: 5px;
-    margin-bottom: 14px;
-  }
-
-  .label {
-    font-size: 10px;
-  }
-
-  .input {
-    height: 32px;
-    padding: 0 8px;
-    font-size: 12px;
+    width: 392px;
+    min-height: 632px;
   }
 
   .passwordWrapper .input {
@@ -291,13 +258,4 @@
     height: 16px;
   }
 
-  .submitButton {
-    height: 32px;
-    font-size: 12px;
-  }
-
-  .loginText {
-    margin-top: 16px;
-    font-size: 12px;
-  }
 }
