@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { DM_Sans, Manrope, Noto_Sans, Merienda} from "next/font/google";
 import { QueryProvider } from "@/providers/QueryProvider";
 import "./globals.css";
+import { ReactNode } from "react";
+import Header from "@/components/layout/Header/Header";
+import Footer from "@/components/layout/Footer/Footer";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -72,9 +75,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
       lang="uk"
       className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable} ${merienda.variable}`}
     >
+      <QueryProvider>
+        {/* <AuthProvider> */}
       <body>
-        <QueryProvider>{children}</QueryProvider>
-      </body>
+        <Header />
+        {children}
+        <Footer />
+          </body>
+          {/* </AuthProvider> */}
+        </QueryProvider>
     </html>
   );
 }
