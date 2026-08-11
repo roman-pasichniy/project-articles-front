@@ -146,58 +146,60 @@
 
   .textarea {
     width: 100%;
-    height: 393px;
     min-height: 393px;
+    resize: none;
+    overflow: hidden;
+  }
+}
+
+.button {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  width: 100%;
+}
+
+@media screen and (min-width: 1440px) {
+  .form {
+    display: grid;
+    grid-template-columns: 809px 391px;
+    grid-template-areas:
+      "title photo"
+      "description photo"
+      "button photo";
+    column-gap: 24px;
+    row-gap: 32px;
+    max-width: 1224px;
+    align-items: start;
+  }
+
+  .titleField {
+    grid-area: title;
+  }
+
+  .photoField {
+    grid-area: photo;
+  }
+
+  .descriptionField {
+    grid-area: description;
+  }
+
+  .photoLabel {
+    width: 391px;
+    height: 280px;
+    min-height: 280px;
+  }
+
+  .textarea {
+    width: 809px;
+    min-height: 393px;
+    resize: none;
+    overflow: hidden;
   }
 
   .button {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    width: 100%;
-  }
-
-  @media screen and (min-width: 1440px) {
-    .form {
-      display: grid;
-      grid-template-columns: 809px 391px;
-      grid-template-areas:
-        "title photo"
-        "description photo"
-        "button photo";
-      column-gap: 24px;
-      row-gap: 32px;
-      max-width: 1224px;
-      align-items: start;
-    }
-
-    .titleField {
-      grid-area: title;
-    }
-
-    .photoField {
-      grid-area: photo;
-    }
-
-    .descriptionField {
-      grid-area: description;
-    }
-
-    .photoLabel {
-      width: 391px;
-      height: 280px;
-      min-height: 280px;
-    }
-
-    .textarea {
-      width: 809px;
-      height: 393px;
-      min-height: 393px;
-    }
-
-    .button {
-      grid-area: button;
-      width: 809px;
-      height: 46px;
-    }
+    grid-area: button;
+    width: 809px;
+    height: 46px;
   }
 }
