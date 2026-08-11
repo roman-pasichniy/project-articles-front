@@ -71,7 +71,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="uk"
-      className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable} ${merienda.variable}`}
+      className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable}`}
     >
       <body>
         <QueryProvider>{children}</QueryProvider>
