@@ -5,7 +5,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 import css from "./AuthNavigation.module.css";
 import UserBar from "../layout/UserBar/UserBar";
 import LogoutModal from "../layout/LogoutModal/LogoutModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface AuthNavigationProps {
@@ -18,10 +18,12 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   // Отримуємо стан та метод очищення
-  const { isAuthenticated, user, clearIsAuthenticated } = useAuthStore();
+  const { isAuthenticated, user, clearIsAuthenticated, fetchUser } =
+    useAuthStore();
 
-  const isAuthTest = true;
-  const userTest = { name: "Maryana", avatarUrl: "" };
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   // Логіка підтвердження виходу
   const handleConfirmLogout = async () => {
@@ -50,8 +52,7 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
 
   return (
     <div className={css.authNav}>
-      {/* {isAuthenticated ? ( */}
-      {isAuthTest ? (
+      {isAuthenticated ? (
         <>
           {/* Створити статтю */}
           <Link
@@ -63,13 +64,7 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
           </Link>
 
           {/* UserBar з даними залогіненого юзера */}
-          <UserBar
-            // name={user?.name}
-            name={userTest.name}
-            // avatarUrl={user?.avatarUrl}
-            avatarUrl={userTest.avatarUrl}
-            onLogoutClick={() => setIsLogoutOpen(true)}
-          />
+          <UserBar onLogoutClick={() => setIsLogoutOpen(true)} />
 
           {/* Ваша модалка виходу */}
           <LogoutModal

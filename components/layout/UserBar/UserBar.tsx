@@ -1,18 +1,24 @@
 import Link from "next/link";
 import styles from "./UserBar.module.css";
 import Image from "next/image";
+import { useAuthStore } from "@/lib/store/authStore";
+import { useEffect } from "react";
 
 type UserBarProps = {
-  name?: string;
-  avatarUrl?: string;
   onLogoutClick: () => void;
 };
 
-export default function UserBar({
-  name = "User",
-  avatarUrl,
-  onLogoutClick,
-}: UserBarProps) {
+export default function UserBar({ onLogoutClick }: UserBarProps) {
+  const fetchUser = useAuthStore((state) => state.fetchUser);
+  const user = useAuthStore((state) => state.user);
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  const name = user?.name || "User";
+  const avatarUrl = user?.avatarUrl;
+
   const firstLetter = name ? name.charAt(0).toUpperCase() : "U";
   return (
     <div className={styles.userBar}>
