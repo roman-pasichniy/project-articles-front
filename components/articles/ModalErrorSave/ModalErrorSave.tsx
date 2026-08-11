@@ -14,7 +14,11 @@ export default function ModalErrorSave({
   onClose,
 }: ModalErrorSaveProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} ariaLabel="Помилка збереження">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      ariaLabel="Помилка збереження статті"
+    >
       <div className={css.content}>
         <h2 className={css.title}>Error while saving</h2>
         <p className={css.description}>
@@ -24,7 +28,11 @@ export default function ModalErrorSave({
           <Link className={css.primaryLink} href="/login" onClick={onClose}>
             Log in
           </Link>
-          <Link className={css.secondaryLink} href="/register" onClick={onClose}>
+          <Link
+            className={css.secondaryLink}
+            href="/register"
+            onClick={onClose}
+          >
             Register
           </Link>
         </div>
