@@ -1,11 +1,13 @@
 import { create } from "zustand";
 import { User } from "../types/user";
+import { getCurrentUser } from "../api/api";
 
 type AuthStore = {
   user: User | null;
   isAuthenticated: boolean;
   setUser: (user: User) => void;
   clearIsAuthenticated: () => void;
+  fetchUser: () => Promise<void>;
 };
 
 export const useAuthStore = create<AuthStore>()((set) => ({
@@ -23,4 +25,19 @@ export const useAuthStore = create<AuthStore>()((set) => ({
       user: null,
       isAuthenticated: false,
     }),
+
+  fetchUser: async () => {
+    try {
+      const data = await getCurrentUser();
+      set({
+        user: data,
+        isAuthenticated: true,
+      });
+    } catch (error) {
+      set({
+        user: null,
+        isAuthenticated: false,
+      });
+    }
+  },
 }));
