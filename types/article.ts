@@ -3,8 +3,8 @@ export type Article = {
   photo: string;
   title: string;
   description: string;
-  content: string;
-  rate: number;
+  content?: string;
+  rate?: number;
   ownerId: string;
   date: string;
   author?: string;
@@ -12,13 +12,11 @@ export type Article = {
 };
 
 export type ArticlesResponse = {
-  articles: Article[];
-  pagination: {
-    page: number;
-    perPage: number;
-    totalItems: number;
-    totalPages: number;
-  };
+  data: Article[];
+  page: number;
+  perPage: number;
+  totalItems: number;
+  totalPages: number;
 };
 
 export type GetArticlesParams = {
@@ -27,4 +25,24 @@ export type GetArticlesParams = {
   category?: "popular" | "general";
   sortBy?: "date" | "rate" | "title";
   sortOrder?: "asc" | "desc";
+};
+
+export type UserArticle = {
+  _id: string;
+  title: string;
+  description: string;
+  photo: string;
+  author: string;
+  ownerId: string;
+  date: string;
+};
+
+export type UserArticlesResponse = {
+  articles: UserArticle[];
+  pagination: {
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+  };
 };

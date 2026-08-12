@@ -1,6 +1,6 @@
-import type { ArticlesResponse } from "@/types/article";
-import { getUserArticles } from "../api/users";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { getUserArticles } from "@/lib/api/users";
+import type { UserArticlesResponse } from "@/types/article";
 
 export function useUserArticles(userId: string, perPage = 10) {
   return useInfiniteQuery({
@@ -10,10 +10,12 @@ export function useUserArticles(userId: string, perPage = 10) {
 
     initialPageParam: 1,
 
-    getNextPageParam: (lastPage: ArticlesResponse) => {
+    getNextPageParam: (lastPage: UserArticlesResponse) => {
       const { page, totalPages } = lastPage.pagination;
 
       return page < totalPages ? page + 1 : undefined;
     },
+
+    enabled: Boolean(userId),
   });
 }

@@ -1,3 +1,5 @@
+import type { UserArticlesResponse } from "@/types/article";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
 
 export async function getUserById(userId: string) {
@@ -14,9 +16,18 @@ export async function getUserById(userId: string) {
   return data;
 }
 
-export async function getUserArticles(userId: string, page = 1, perPage = 10) {
+export async function getUserArticles(
+  userId: string,
+  page = 1,
+  perPage = 10,
+): Promise<UserArticlesResponse> {
+  const searchParams = new URLSearchParams({
+    page: String(page),
+    perPage: String(perPage),
+  });
+
   const response = await fetch(
-    `${API_URL}/users/${userId}/articles?page=${page}&perPage=${perPage}`,
+    `${API_URL}/users/${userId}/articles?${searchParams.toString()}`,
     {
       credentials: "include",
     },
@@ -24,11 +35,9 @@ export async function getUserArticles(userId: string, page = 1, perPage = 10) {
 
   const data = await response.json().catch(() => null);
 
-  console.log("GET USER ARTICLES:", data);
-
   if (!response.ok) {
     throw new Error(data?.message ?? "Failed to load author articles");
   }
 
-  return data;
+  return data as UserArticlesResponse;
 }
