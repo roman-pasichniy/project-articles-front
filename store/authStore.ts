@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { User } from "../types/user";
-import { getCurrentUser } from "../api/api";
+import { User } from "@/types/user";
+import { getCurrentUser } from "@/lib/api/api";
 
 type AuthStore = {
   user: User | null;

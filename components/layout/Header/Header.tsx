@@ -3,15 +3,13 @@ import Link from "next/link";
 
 import css from "./Header.module.css";
 import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
+import Logo from "@/components/common/Logo/Logo";
 
 export default function Header() {
   return (
     <header className={css.header}>
       <Container>
-        {/* Логотип */}
-        <Link href="/" aria-label="Home" className={css.logo}>
-          harmoniq
-        </Link>
+        <Logo />
 
         {/* Основна навігація */}
         <nav aria-label="Main Navigation">

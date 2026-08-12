@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useAuthStore } from "@/lib/store/authStore";
+import { useAuthStore } from "@/store/authStore";
 import css from "./AuthNavigation.module.css";
 import UserBar from "../layout/UserBar/UserBar";
 import LogoutModal from "../layout/LogoutModal/LogoutModal";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Button from "../common/Button/Button";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
@@ -51,18 +52,19 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   };
 
   return (
-    <div className={css.authNav}>
-      {isAuthenticated ? (
-        <>
-          {/* Створити статтю */}
-          <Link
-            href="/articles/new"
-            onClick={onLinkClick}
-            className={css.actionBtn}
-          >
-            Create an article
+   <div className={css.authNav}>
+    {isAuthenticated ? (
+      <div className={css.authenticated}>
+        {/* Обгортка для приховування/показу кнопки на мобільних */}
+        <div className={css.createBtnWrapper}>
+          <Link href="/articles/new" onClick={onLinkClick}>
+            <Button variant="fill" size="md">
+              Create an article
+            </Button>
           </Link>
+        </div>
 
+       
           {/* UserBar з даними залогіненого юзера */}
           <UserBar onLogoutClick={() => setIsLogoutOpen(true)} />
 
@@ -73,23 +75,25 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
             onClose={() => setIsLogoutOpen(false)}
             onConfirm={handleConfirmLogout}
           />
-        </>
-      ) : (
-        <>
-          {/* Неавторизований стан */}
-          <Link href="/login" onClick={onLinkClick} className={css.loginLink}>
-            Log in
-          </Link>
 
-          <Link
-            href="/register"
-            onClick={onLinkClick}
-            className={css.actionBtn}
-          >
+      </div>
+    ) : (
+      <div className={css.unauthenticated}>
+        <Link href="/login" onClick={onLinkClick}>
+          <Button variant="outline" size="md">
+            Log in
+          </Button>
+        </Link>
+
+        <Link href="/register" onClick={onLinkClick}>
+          <Button variant="fill" size="md">
             Join now
-          </Link>
-        </>
-      )}
-    </div>
+          </Button>
+        </Link>
+      </div>
+    )}
+  </div>
   );
 }
+
+
