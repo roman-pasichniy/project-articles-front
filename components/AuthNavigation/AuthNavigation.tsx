@@ -52,19 +52,18 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   };
 
   return (
-   <div className={css.authNav}>
-    {isAuthenticated ? (
-      <div className={css.authenticated}>
-        {/* Обгортка для приховування/показу кнопки на мобільних */}
-        <div className={css.createBtnWrapper}>
-          <Link href="/articles/new" onClick={onLinkClick}>
-            <Button variant="fill" size="md">
-              Create an article
-            </Button>
-          </Link>
-        </div>
+    <div className={css.authNav}>
+      {isAuthenticated ? (
+        <div className={css.authenticated}>
+          {/* Обгортка для приховування/показу кнопки на мобільних */}
+          <div className={css.createBtnWrapper}>
+            <Link href="/articles/new" onClick={onLinkClick}>
+              <Button variant="fill" size="md">
+                Create an article
+              </Button>
+            </Link>
+          </div>
 
-       
           {/* UserBar з даними залогіненого юзера */}
           <UserBar onLogoutClick={() => setIsLogoutOpen(true)} />
 
@@ -75,25 +74,22 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
             onClose={() => setIsLogoutOpen(false)}
             onConfirm={handleConfirmLogout}
           />
+        </div>
+      ) : (
+        <div className={css.unauthenticated}>
+          <Link href="/login" onClick={onLinkClick}>
+            <Button variant="outline" size="md" className={css.loginBtn}>
+              Log in
+            </Button>
+          </Link>
 
-      </div>
-    ) : (
-      <div className={css.unauthenticated}>
-        <Link href="/login" onClick={onLinkClick}>
-          <Button variant="outline" size="md">
-            Log in
-          </Button>
-        </Link>
-
-        <Link href="/register" onClick={onLinkClick}>
-          <Button variant="fill" size="md">
-            Join now
-          </Button>
-        </Link>
-      </div>
-    )}
-  </div>
+          <Link href="/register" onClick={onLinkClick}>
+            <Button variant="fill" size="md">
+              Join now
+            </Button>
+          </Link>
+        </div>
+      )}
+    </div>
   );
 }
-
-
