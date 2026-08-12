@@ -40,7 +40,7 @@ export default function ArticlesItem({
         <Link className={styles.learnMore} href={`/articles/${articleId}`}>
           Learn more
         </Link>
-        <ButtonAddToBookmarks />
+        <ButtonAddToBookmarks articleId={articleId} />
       </div>
     </article>
   );
