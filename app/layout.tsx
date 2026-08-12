@@ -22,6 +22,11 @@ const notoSans = Noto_Sans({
   subsets: ["latin", "cyrillic"],
 });
 
+const merienda = Merienda({
+  variable: "--font-merienda",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "harmoniq",
   description: "Find your harmony in community",
@@ -31,7 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="uk"
-      className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable}`}
+      className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable} ${merienda.variable}`}
     >
       <body>
         <QueryProvider>

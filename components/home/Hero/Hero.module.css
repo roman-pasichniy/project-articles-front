@@ -142,7 +142,7 @@
 
 @media screen and (min-width: 1440px) {
   .hero {
-    padding-block: 0 96px;
+    padding-block: 48px 96px;
   }
 
   .content {
