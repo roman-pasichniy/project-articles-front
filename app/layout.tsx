@@ -6,72 +6,29 @@ import "./globals.css";
 
 const manrope = Manrope({
   variable: "--font-manrope",
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin", "cyrillic"],
 });
 
 const dmSans = DM_Sans({
-  subsets: ["latin"],
   variable: "--font-dm-sans",
+  subsets: ["latin"],
 });
 
 const notoSans = Noto_Sans({
   variable: "--font-noto-sans",
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin", "cyrillic"],
 });
 
-const merienda = Merienda({
-  variable: "--font-merienda",
-  subsets: ["latin", "latin-ext"],
-});
+export const metadata: Metadata = {
+  title: "harmoniq",
+  description: "Find your harmony in community",
+};
 
-export function generateMetadata(): Metadata {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-
-  return {
-    metadataBase: new URL(siteUrl),
-
-    title: {
-      default: "harmoniq",
-      template: "%s | harmoniq",
-    },
-
-    description: "Find your harmony in community",
-
-    openGraph: {
-      type: "website",
-      locale: "en_US",
-      siteName: "harmoniq",
-      title: "harmoniq",
-      description: "Find your harmony in community",
-      url: "/",
-      images: [
-        {
-          url: "/images/dandelion-sunset.webp",
-          width: 2048,
-          height: 1046,
-          alt: "Dandelion seeds flying at sunset",
-        },
-      ],
-    },
-
-    twitter: {
-      card: "summary_large_image",
-      title: "harmoniq",
-      description: "Find your harmony in community",
-      images: ["/images/dandelion-sunset.webp"],
-    },
-  };
-}
-
-type RootLayoutProps = Readonly<{
-  children: ReactNode;
-}>;
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="uk"
-      className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable} ${merienda.variable}`}
+      className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable}`}
     >
       <body>
         <QueryProvider>{children}</QueryProvider>
