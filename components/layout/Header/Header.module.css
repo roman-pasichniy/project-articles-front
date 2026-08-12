@@ -1,77 +1,79 @@
-/* ==========================================================================
-   1. БАЗОВІ СТИЛІ (Mobile: < 768px)
-   ========================================================================== */
+/* ==========================
+   MOBILE FIRST (за замовчуванням: 320px +)
+   ========================== */
 
 .header {
   width: 100%;
-  min-height: 74px;
-  background-color: #d1e0d8;
-  padding: 14px 16px;
+  background-color: var(--light-green);
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+/* Контейнер хедера керує розміщенням Логотипу та Навігації */
+.header :global(.container) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1f302b;
-  text-decoration: none;
-  letter-spacing: -0.02em;
-}
-
+/* На мобільних приховуємо десктопну навігацію (використовуємо MobileMenu) */
 .navigation {
+  display: none;
+}
+
+.navList {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  align-items: center;
+  gap: 24px;
 }
 
 .navLink {
-  color: #2d4038;
-  font-size: 16px;
+  font-family: var(--font-family);
   font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease-in-out;
 }
 
-.navLink:hover {
-  color: #549179;
+.navLink:hover,
+.navLink:focus {
+  color: var(--green);
 }
 
-/* ==========================================================================
-   2. ТАБЛЕТИ (Tablet: >= 768px)
-   ========================================================================== */
+.authItem {
+  display: flex;
+  align-items: center;
+}
 
-@media (min-width: 768px) {
+/* ==========================
+   TABLET (768px +)
+   ========================== */
+@media screen and (min-width: 768px) {
   .header {
-    padding: 14px 32px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  /* Показуємо основну навігацію на планшетах і десктопах */
+  .navigation {
+    display: flex;
+    align-items: center;
+    gap: 32px;
   }
 }
 
-/* ==========================================================================
-   3. ДЕСКТОПИ (Desktop: >= 1024px)
-   ========================================================================== */
-
-@media (min-width: 1024px) {
+/* ==========================
+   DESKTOP (1440px +)
+   ========================== */
+@media screen and (min-width: 1440px) {
   .header {
-    padding: 14px 105px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 
   .navigation {
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .navLink {
-    font-size: 14px;
-  }
-
-  .authItem {
-    margin-left: 12px;
+    gap: 40px;
   }
 }

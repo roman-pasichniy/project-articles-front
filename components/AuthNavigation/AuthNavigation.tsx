@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useAuthStore } from "@/lib/store/authStore";
+import { useAuthStore } from "@/store/authStore";
 import css from "./AuthNavigation.module.css";
 import UserBar from "../layout/UserBar/UserBar";
 import LogoutModal from "../layout/LogoutModal/LogoutModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Button from "../common/Button/Button";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
@@ -18,7 +19,12 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   // Отримуємо стан та метод очищення
-  const { isAuthenticated, user, clearIsAuthenticated } = useAuthStore();
+  const { isAuthenticated, user, clearIsAuthenticated, fetchUser } =
+    useAuthStore();
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   // Логіка підтвердження виходу
   const handleConfirmLogout = async () => {
@@ -48,22 +54,18 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   return (
     <div className={css.authNav}>
       {isAuthenticated ? (
-        <>
-          {/* Створити статтю */}
-          <Link
-            href="/articles/new"
-            onClick={onLinkClick}
-            className={css.actionBtn}
-          >
-            Create an article
-          </Link>
+        <div className={css.authenticated}>
+          {/* Обгортка для приховування/показу кнопки на мобільних */}
+          <div className={css.createBtnWrapper}>
+            <Link href="/articles/new" onClick={onLinkClick}>
+              <Button variant="fill" size="md">
+                Create an article
+              </Button>
+            </Link>
+          </div>
 
           {/* UserBar з даними залогіненого юзера */}
-          <UserBar
-            name={user?.name}
-            avatarUrl={user?.avatarUrl}
-            onLogoutClick={() => setIsLogoutOpen(true)}
-          />
+          <UserBar onLogoutClick={() => setIsLogoutOpen(true)} />
 
           {/* Ваша модалка виходу */}
           <LogoutModal
@@ -72,22 +74,21 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
             onClose={() => setIsLogoutOpen(false)}
             onConfirm={handleConfirmLogout}
           />
-        </>
+        </div>
       ) : (
-        <>
-          {/* Неавторизований стан */}
-          <Link href="/login" onClick={onLinkClick} className={css.loginLink}>
-            Log in
+        <div className={css.unauthenticated}>
+          <Link href="/login" onClick={onLinkClick}>
+            <Button variant="outline" size="md" className={css.loginBtn}>
+              Log in
+            </Button>
           </Link>
 
-          <Link
-            href="/register"
-            onClick={onLinkClick}
-            className={css.actionBtn}
-          >
-            Join now
+          <Link href="/register" onClick={onLinkClick}>
+            <Button variant="fill" size="md">
+              Join now
+            </Button>
           </Link>
-        </>
+        </div>
       )}
     </div>
   );

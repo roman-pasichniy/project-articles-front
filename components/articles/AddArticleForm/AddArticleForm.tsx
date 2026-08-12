@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { createArticle } from "@/lib/api/articles";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import type { InputEvent } from "react";
 import Image from "next/image";
 import styles from "./AddArticleForm.module.css";
 
@@ -139,6 +140,13 @@ export default function AddArticleForm() {
               placeholder="Enter a text"
               className={styles.textarea}
               aria-label="Article text"
+              onInput={(event: InputEvent<HTMLTextAreaElement>) => {
+                const textarea = event.currentTarget;
+
+                textarea.style.height = "auto";
+                textarea.style.height = `${textarea.scrollHeight}px`;
+                textarea.scrollTop = 0;
+              }}
             />
             <ErrorMessage
               name="description"

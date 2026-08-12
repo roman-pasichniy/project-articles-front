@@ -11,6 +11,24 @@
   border-radius: var(--radius-pill);
   background-color: transparent;
   color: var(--green-darker);
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    background-color 200ms ease;
+}
+
+.button:hover:not(:disabled),
+.button:focus-visible {
+  background-color: var(--light-green);
+}
+
+.button:disabled {
+  cursor: default;
+}
+
+.saved {
+  color: var(--white);
+  background-color: var(--green-darker);
 }
 
 .icon {
@@ -18,4 +36,20 @@
   height: 24px;
   fill: none;
   stroke: currentColor;
+}
+
+.saved .icon {
+  fill: currentColor;
+}
+
+.loader {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  overflow: hidden;
+}
+
+.loader > * {
+  transform: scale(0.5);
 }
