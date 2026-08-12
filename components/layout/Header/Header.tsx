@@ -8,7 +8,7 @@ import Logo from "@/components/common/Logo/Logo";
 export default function Header() {
   return (
     <header className={css.header}>
-      <Container>
+      <Container className="container">
         <Logo />
 
         {/* Основна навігація */}
@@ -21,7 +21,7 @@ export default function Header() {
             </li>
             <li>
               <Link href="/articles" className={css.navLink}>
-                + Articles
+                Articles
               </Link>
             </li>
             <li>
