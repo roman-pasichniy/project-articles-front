@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useAuthStore } from "@/lib/store/authStore";
+import { useAuthStore } from "@/store/authStore";
 import css from "./AuthNavigation.module.css";
 import UserBar from "../layout/UserBar/UserBar";
 import LogoutModal from "../layout/LogoutModal/LogoutModal";

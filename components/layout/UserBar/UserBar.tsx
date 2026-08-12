@@ -1,8 +1,10 @@
+"use client";
+
 import Link from "next/link";
-import styles from "./UserBar.module.css";
 import Image from "next/image";
-import { useAuthStore } from "@/lib/store/authStore";
 import { useEffect } from "react";
+import { useAuthStore } from "@/store/authStore";
+import styles from "./UserBar.module.css";
 
 type UserBarProps = {
   onLogoutClick: () => void;
@@ -18,29 +20,32 @@ export default function UserBar({ onLogoutClick }: UserBarProps) {
 
   const name = user?.name || "User";
   const avatarUrl = user?.avatarUrl;
+  const firstLetter = name.charAt(0).toUpperCase() || "U";
 
-  const firstLetter = name ? name.charAt(0).toUpperCase() : "U";
   return (
     <div className={styles.userBar}>
+      {/* Посилання на профіль: містить аватарку та ім'я */}
       <Link href="/profile" className={styles.profileLink}>
-        <div className={styles.avatar}>
+        <span className={styles.avatar}>
           {avatarUrl ? (
             <Image
               src={avatarUrl}
               alt={name}
-              width={36}
-              height={36}
+              width={32}
+              height={32}
               className={styles.avatarImg}
             />
           ) : (
-            <span>{firstLetter}</span>
+            <span className={styles.avatarLetter}>{firstLetter}</span>
           )}
-        </div>
+        </span>
         <span className={styles.userName}>{name}</span>
       </Link>
 
-      <span className={styles.divider} aria-hidden="true"></span>
+      {/* Вертикальний розділювач */}
+      <span className={styles.divider} aria-hidden="true" />
 
+      {/* Кнопка виходу */}
       <button
         type="button"
         onClick={onLogoutClick}
@@ -48,7 +53,7 @@ export default function UserBar({ onLogoutClick }: UserBarProps) {
         aria-label="Exit"
       >
         <svg className={styles.exitIcon}>
-          <use href="/icons/sprite.svg#icon-logout"></use>
+          <use href="/icons/sprite.svg#icon-log-out" />
         </svg>
       </button>
     </div>

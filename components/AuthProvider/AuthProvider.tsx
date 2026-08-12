@@ -1,49 +1,44 @@
-// "use client";
+"use client";
 
-// import { useEffect, ReactNode } from "react";
-// import { checkSession, getMe } from "@/lib/api/clientApi";
-// import { useAuthStore } from "@/lib/store/authStore";
+import { useEffect, ReactNode } from "react";
+import { useAuthStore } from "@/store/authStore";
+import { getCurrentUser } from "@/lib/api/api";
 
-// type Props = {
-//   children: ReactNode;
-// };
+type Props = {
+  children: ReactNode;
+};
 
-// export default function AuthProvider({ children }: Props) {
+export default function AuthProvider({ children }: Props) {
+  const setUser = useAuthStore((state) => state.setUser);
+  const clearIsAuthenticated = useAuthStore(
+    (state) => state.clearIsAuthenticated,
+  );
 
+  useEffect(() => {
+    let isMounted = true;
 
-//   const setUser = useAuthStore((state) => state.setUser);
-//   const clearIsAuthenticated = useAuthStore(
-//     (state) => state.clearIsAuthenticated
-//   );
+    const initAuth = async () => {
+      try {
+        // Одразу запитуємо поточного користувача
+        const user = await getCurrentUser();
 
-//   useEffect(() => {
-//     let isMounted = true;
+        if (isMounted && user) {
+          setUser(user);
+        }
+      } catch {
+        // Якщо сесія недійсна/помилка — скидаємо авторизацію
+        if (isMounted) {
+          clearIsAuthenticated();
+        }
+      }
+    };
 
-//     const initAuth = async () => {
-//       try {
-//         const isSessionValid = await checkSession();
+    initAuth();
 
-//         if (!isSessionValid) {
-//           clearIsAuthenticated();
-//           return;
-//         }
+    return () => {
+      isMounted = false;
+    };
+  }, [setUser, clearIsAuthenticated]);
 
-//         const user = await getMe();
-
-//         if (isMounted) {
-//           setUser(user);
-//         }
-//       } catch {
-//         clearIsAuthenticated();
-//       }
-//     };
-
-//     initAuth();
-
-//     return () => {
-//       isMounted = false;
-//     };
-//   }, [setUser, clearIsAuthenticated]);
-
-//   return <>{children}</>;
-// }
+  return <>{children}</>;
+}
