@@ -18,8 +18,10 @@ export default function UserBar({ onLogoutClick }: UserBarProps) {
     fetchUser();
   }, [fetchUser]);
 
-  const name = user?.name || "User";
-  const avatarUrl = user?.avatarUrl;
+  const name = user?.name || "Olena";
+  const avatarUrl =
+    user?.avatarUrl ||
+    "https://ac.goit.global/fullstack/react/default-avatar.jpg";
   const firstLetter = name.charAt(0).toUpperCase() || "U";
 
   return (
@@ -53,7 +55,7 @@ export default function UserBar({ onLogoutClick }: UserBarProps) {
         aria-label="Exit"
       >
         <svg className={styles.exitIcon}>
-          <use href="/icons/sprite.svg#icon-log-out" />
+          <use href="/icons/sprite.svg#icon-logout" />
         </svg>
       </button>
     </div>
