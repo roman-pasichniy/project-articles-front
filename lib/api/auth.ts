@@ -28,3 +28,21 @@ export async function loginUser(
 
   return response.json();
 }
+export async function logoutUser(): Promise<void> {
+  if (!API_URL) {
+    throw new Error("NEXT_PUBLIC_API_URL is not configured");
+  }
+
+  const response = await fetch(`${API_URL}/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    const error = await response
+      .json()
+      .catch(() => ({ message: "Logout failed" }));
+
+    throw new Error(error.message ?? "Logout failed");
+  }
+}

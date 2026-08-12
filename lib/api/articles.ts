@@ -94,3 +94,23 @@ export async function addArticleToBookmarks(articleId: string) {
 
   return data;
 }
+export async function removeArticleFromBookmarks(articleId: string) {
+  const response = await fetch(
+    `${API_URL}/users/me/saved-articles/${articleId}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+    },
+  );
+
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new ArticlesApiError(
+      response.status,
+      data?.message ?? "Failed to remove article from saved articles",
+    );
+  }
+
+  return data;
+}

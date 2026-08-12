@@ -3,7 +3,11 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Loader from "@/components/common/Loader/Loader";
-import { addArticleToBookmarks, ArticlesApiError } from "@/lib/api/articles";
+import {
+  addArticleToBookmarks,
+  ArticlesApiError,
+  removeArticleFromBookmarks,
+} from "@/lib/api/articles";
 import ModalErrorSave from "../ModalErrorSave/ModalErrorSave";
 import styles from "./ButtonAddToBookmarks.module.css";
 
@@ -19,13 +23,20 @@ export default function ButtonAddToBookmarks({
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const handleSave = async () => {
-    if (isLoading || isSaved) return;
+    if (isLoading) return;
 
     try {
       setIsLoading(true);
-      await addArticleToBookmarks(articleId);
-      setIsSaved(true);
-      toast.success("Article saved");
+
+      if (isSaved) {
+        await removeArticleFromBookmarks(articleId);
+        setIsSaved(false);
+        toast.success("Article removed from saved articles");
+      } else {
+        await addArticleToBookmarks(articleId);
+        setIsSaved(true);
+        toast.success("Article saved");
+      }
     } catch (error) {
       if (error instanceof ArticlesApiError) {
         if (error.status === 401) {
@@ -37,10 +48,17 @@ export default function ButtonAddToBookmarks({
           setIsSaved(true);
           return;
         }
+
+        if (error.status === 404 && isSaved) {
+          setIsSaved(false);
+          return;
+        }
       }
 
       toast.error(
-        error instanceof Error ? error.message : "Failed to save article",
+        error instanceof Error
+          ? error.message
+          : "Failed to update saved article",
       );
     } finally {
       setIsLoading(false);
@@ -52,18 +70,21 @@ export default function ButtonAddToBookmarks({
       <button
         className={`${styles.button} ${isSaved ? styles.saved : ""}`}
         type="button"
-        aria-label={isSaved ? "Article saved" : "Save article"}
+        aria-label={isSaved ? "Remove article from saved" : "Save article"}
         aria-pressed={isSaved}
-        disabled={isLoading || isSaved}
+        disabled={isLoading}
         onClick={handleSave}
       >
         {isLoading ? (
           <span className={styles.loader}>
-            <Loader fullScreen={false} label="Saving article" />
+            <Loader
+              fullScreen={false}
+              label={isSaved ? "Removing article" : "Saving article"}
+            />
           </span>
         ) : (
           <svg className={styles.icon} aria-hidden="true">
-            <use href="/icons/sprite.svg#icon-save" />
+            <use href="/icons/sprite.svg#icon-bookmark" />
           </svg>
         )}
       </button>
