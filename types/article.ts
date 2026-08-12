@@ -12,11 +12,13 @@ export type Article = {
 };
 
 export type ArticlesResponse = {
-  data: Article[];
-  page: number;
-  perPage: number;
-  totalItems: number;
-  totalPages: number;
+  articles: Article[];
+  pagination: {
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+  };
 };
 
 export type GetArticlesParams = {
