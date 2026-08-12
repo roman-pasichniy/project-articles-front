@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Container from "@/components/common/Container/Container";
 import styles from "./About.module.css";
 
@@ -6,16 +7,44 @@ export default function About() {
     <section className={styles.section} id="about">
       <Container>
         <div className={styles.content}>
-          <div>
-            <p className={styles.eyebrow}>About Harmoniq</p>
+          <div className={styles.about}>
             <h2 className={styles.title}>About us</h2>
+
+            <p className={styles.description}>
+              Harmoniq is a mindful publishing platform dedicated to mental
+              health and well-being. We bring together writers, thinkers, and
+              readers who believe that open, thoughtful stories can heal,
+              inspire, and connect. Whether you&apos;re here to share your journey
+              or learn from others — this is your space to slow down, reflect,
+              and grow.
+            </p>
           </div>
-          <p className={styles.description}>
-            Harmoniq is a mindful publishing platform where people share stories,
-            ideas, and practices that support balance and well-being.
-          </p>
-          <div className={styles.imagePlaceholder} aria-hidden="true">
-            About image
+
+          <div className={styles.image}>
+            <Image
+              src="/images/about/image-lotus.webp"
+              alt="Lotus flower"
+              fill
+              sizes="(max-width: 767px) 100vw, 60vw"
+            />
+          </div>
+
+          <div className={styles.image}>
+            <Image
+              src="/images/about/image-people.webp"
+              alt="People walking together"
+              fill
+              sizes="(max-width: 767px) 100vw, 70vw"
+            />
+          </div>
+
+          <div className={styles.image}>
+            <Image
+              src="/images/about/image-meditation.webp"
+              alt="Person meditating"
+              fill
+              sizes="(max-width: 767px) 100vw, 30vw"
+            />
           </div>
         </div>
       </Container>
