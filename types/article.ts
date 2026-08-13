@@ -12,13 +12,11 @@ export type Article = {
 };
 
 export type ArticlesResponse = {
-  articles: Article[];
-  pagination: {
-    page: number;
-    perPage: number;
-    totalItems: number;
-    totalPages: number;
-  };
+  data: Article[];
+  page: number;
+  perPage: number;
+  totalItems: number;
+  totalPages: number;
 };
 
 export type GetArticlesParams = {
@@ -27,4 +25,19 @@ export type GetArticlesParams = {
   category?: "popular" | "general";
   sortBy?: "date" | "rate" | "title";
   sortOrder?: "asc" | "desc";
+};
+
+export type ArticleDetails = {
+  _id: string;
+  img: string;
+  title: string;
+  desc: string;
+  article: string;
+  rate: number;
+  date: string;
+  owner: {
+    _id: string;
+    name: string;
+    avatarUrl?: string;
+  } | null;
 };

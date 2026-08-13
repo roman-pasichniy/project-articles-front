@@ -63,7 +63,7 @@ export default function ButtonAddToBookmarks({
           </span>
         ) : (
           <svg className={styles.icon} aria-hidden="true">
-            <use href="/icons/sprite.svg#icon-save" />
+            <use href="/icons/sprite.svg#icon-bookmark" />
           </svg>
         )}
       </button>
