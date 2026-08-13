@@ -8,6 +8,7 @@ import LogoutModal from "../layout/LogoutModal/LogoutModal";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../common/Button/Button";
+import { logoutUser } from "@/lib/api/auth";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
@@ -30,7 +31,7 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
     try {
       setIsLoading(true);
 
-      // 1. Очищаємо Zustand стор
+      await logoutUser();
       clearIsAuthenticated();
 
       // 2. Закриваємо модалку

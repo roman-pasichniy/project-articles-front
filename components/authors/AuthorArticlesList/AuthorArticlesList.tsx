@@ -63,13 +63,7 @@ export default function AuthorArticlesList({
       <ul ref={listRef} className={styles.list}>
         {articles.map((article) => (
           <li key={article._id}>
-            <ArticlesItem
-              articleId={article._id}
-              title={article.title}
-              description={article.description}
-              photo={article.photo}
-              author={article.author ?? "Harmoniq author"}
-            />
+            <ArticlesItem article={article} />
           </li>
         ))}
       </ul>
