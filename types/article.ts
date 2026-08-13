@@ -46,3 +46,18 @@ export type UserArticlesResponse = {
     totalPages: number;
   };
 };
+
+export type ArticleDetails = {
+  _id: string;
+  img: string;
+  title: string;
+  desc: string;
+  article: string;
+  rate: number;
+  date: string;
+  owner: {
+    _id: string;
+    name: string;
+    avatarUrl?: string;
+  } | null;
+};

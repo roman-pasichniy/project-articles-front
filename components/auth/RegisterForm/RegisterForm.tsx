@@ -143,12 +143,12 @@ export default function RegisterForm() {
                   className={styles.passwordButton}
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  <svg>
+                  <svg className={styles.passwordIcon} aria-hidden="true">
                     <use
-                      href={
-                        showPassword ? "#icon-eye-open" : "#icon-eye-closed"
-                      }
-                    ></use>
+                      href={`/icons/sprite.svg#${
+                        showPassword ? "icon-eye" : "icon-eye-crossed"
+                      }`}
+                    />
                   </svg>
                 </button>
               </div>
@@ -178,12 +178,12 @@ export default function RegisterForm() {
                   className={styles.passwordButton}
                   onClick={() => setShowRepeatPassword(!showRepeatPassword)}
                 >
-                  <svg>
+                  <svg className={styles.passwordIcon} aria-hidden="true">
                     <use
-                      href={
-                        showRepeatPassword ? "#icon-eye-open" : "#icon-close"
-                      }
-                    ></use>
+                      href={`/icons/sprite.svg#${
+                        showRepeatPassword ? "icon-eye" : "icon-eye-crossed"
+                      }`}
+                    />
                   </svg>
                 </button>
               </div>
