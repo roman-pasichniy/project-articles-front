@@ -1,52 +1,30 @@
 "use client";
 
-import type { GetArticlesParams } from "@/types/article";
 import styles from "./ArticlesFilter.module.css";
 
-type SortBy = NonNullable<GetArticlesParams["sortBy"]>;
-type SortOrder = NonNullable<GetArticlesParams["sortOrder"]>;
+type Category = "all" | "popular";
 
 type ArticlesFilterProps = {
-  sortBy: SortBy;
-  sortOrder: SortOrder;
-  onSortByChange: (value: SortBy) => void;
-  onSortOrderChange: (value: SortOrder) => void;
+  category: Category;
+  onCategoryChange: (value: Category) => void;
 };
 
 export default function ArticlesFilter({
-  sortBy,
-  sortOrder,
-  onSortByChange,
-  onSortOrderChange,
+  category,
+  onCategoryChange,
 }: ArticlesFilterProps) {
   return (
-    <div className={styles.filter} aria-label="Article filters">
+    <div className={styles.filter}>
       <label className={styles.field}>
-        <span>Sort by</span>
-
-        <select
+      <select
           className={styles.select}
-          value={sortBy}
-          onChange={(event) => onSortByChange(event.target.value as SortBy)}
-        >
-          <option value="date">Date</option>
-          <option value="rate">Rating</option>
-          <option value="title">Title</option>
-        </select>
-      </label>
-
-      <label className={styles.field}>
-        <span>Order</span>
-
-        <select
-          className={styles.select}
-          value={sortOrder}
+          value={category}
           onChange={(event) =>
-            onSortOrderChange(event.target.value as SortOrder)
+            onCategoryChange(event.target.value as Category)
           }
         >
-          <option value="desc">Descending</option>
-          <option value="asc">Ascending</option>
+          <option value="all">All</option>
+          <option value="popular">Popular</option>
         </select>
       </label>
     </div>

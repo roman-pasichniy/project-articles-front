@@ -1,6 +1,11 @@
-import type { ArticlesResponse, GetArticlesParams } from "@/types/article";
+import type {
+  ArticleDetails,
+  ArticlesResponse,
+  GetArticlesParams,
+} from "@/types/article";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
 
 export async function getArticles(
   params: GetArticlesParams = {},
@@ -46,8 +51,18 @@ export async function getArticles(
   return data as ArticlesResponse;
 }
 
+export async function getPopularArticles() {
+  const response = await getArticles({
+    page: 1,
+    perPage: 4,
+    category: "popular",
+  });
+
+  return response.data;
+}
+
 export async function createArticle(formData: FormData) {
-  const response = await fetch("http://localhost:3001/api/articles", {
+  const response = await fetch(`${API_URL}/articles`, {
     method: "POST",
     body: formData,
     credentials: "include",
@@ -72,6 +87,25 @@ export class ArticlesApiError extends Error {
     this.name = "ArticlesApiError";
     this.status = status;
   }
+}
+
+export async function getArticleById(
+  articleId: string,
+): Promise<ArticleDetails> {
+  const response = await fetch(`${API_URL}/articles/${articleId}`, {
+    credentials: "include",
+  });
+
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new ArticlesApiError(
+      response.status,
+      data?.message ?? "Failed to load article",
+    );
+  }
+
+  return data as ArticleDetails;
 }
 
 export async function addArticleToBookmarks(articleId: string) {
