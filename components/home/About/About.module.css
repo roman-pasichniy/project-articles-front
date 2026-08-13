@@ -1,68 +1,115 @@
 .section {
-  padding-block: 48px;
-  background-color: var(--light-green);
+  padding-block: 0px;
+  background-color: var(--white);
 }
 
 .content {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 24px;
 }
 
-.eyebrow {
-  margin-bottom: 8px;
-  color: var(--green-darker);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
+.about,
+.image {
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.about {
+  flex: 1 1 calc(40% - 16px);
+  padding: 32px;
+  background-color: var(--light-green);
+}
+
+.image {
+  position: relative;
+}
+
+.image img {
+  object-fit: cover;
+}
+
+.about,
+.image {
+  width: 100%;
+}
+
+.image:nth-child(2),
+.image:nth-child(3) {
+  height: 365px;
+}
+
+.image:nth-child(4) {
+  display: none;
 }
 
 .title {
-  font-size: clamp(32px, 8vw, 48px);
+  margin-bottom: 32px;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--black);
 }
 
 .description {
-  max-width: 560px;
-  color: var(--gray);
-  line-height: 1.5;
-}
-
-.imagePlaceholder {
-  display: grid;
-  min-height: 240px;
-  place-items: center;
-  border-radius: var(--radius-sm);
-  background-color: var(--green-darker);
-  color: var(--white);
+  width: 297px;
+  line-height: 1.55;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--black);
 }
 
 @media screen and (min-width: 768px) {
-  .section {
-    padding-block: 64px;
+
+  .about {
+    flex: 1 1 calc(60% - 16px);
+    height: 326px;
   }
 
-  .content {
-    grid-template-columns: 1fr 1fr;
+  .image:nth-child(2) {
+    flex: 1 1 calc(40% - 16px);
+    height: 326px;
   }
 
-  .imagePlaceholder {
-    grid-column: 1 / -1;
-    min-height: 360px;
+  .image:nth-child(3) {
+    flex: 1 1 100%;
+    aspect-ratio: 704 / 398;
+    min-height: 0;
+  }
+
+  .description {
+    width: 367px;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .section {
-    padding-block: 96px;
+  .about {
+    flex: 1 1 calc(40% - 16px);
+    height: 326px;
   }
 
-  .content {
-    grid-template-columns: 3fr 4fr 5fr;
-    align-items: start;
-    gap: 32px;
+  
+
+  .image:nth-child(2) {
+    flex: 1 1 calc(60% - 16px);
+    height: 326px;
   }
 
-  .imagePlaceholder {
-    grid-column: auto;
-    min-height: 400px;
+  .image:nth-child(3) {
+    flex: 1 1 calc(60% - 16px);
+    height: 398px;
+  }
+
+  .image:nth-child(4) {
+    flex: 1 1 calc(30% - 16px);
+    height: 398px;
+    display: block;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .description {
+    width: 432px;
   }
 }
