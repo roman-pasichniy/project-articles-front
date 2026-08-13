@@ -14,18 +14,35 @@ export default function About() {
               Harmoniq is a mindful publishing platform dedicated to mental
               health and well-being. We bring together writers, thinkers, and
               readers who believe that open, thoughtful stories can heal,
-              inspire, and connect. Whether you&apos;re here to share your journey
-              or learn from others — this is your space to slow down, reflect,
-              and grow.
+              inspire, and connect. Whether you&apos;re here to share your
+              journey or learn from others — this is your space to slow down,
+              reflect, and grow.
             </p>
           </div>
 
           <div className={styles.image}>
             <Image
-              src="/images/about/image-lotus.webp"
+              className={styles.mobileImage}
+              src="/images/about/image-lotus-mobile.webp"
               alt="Lotus flower"
               fill
-              sizes="(max-width: 767px) 100vw, 60vw"
+              sizes="100vw"
+            />
+
+            <Image
+              className={styles.tabletImage}
+              src="/images/about/image-lotus-tablet.webp"
+              alt="Lotus flower"
+              fill
+              sizes="100vw"
+            />
+
+            <Image
+              className={styles.desktopImage}
+              src="/images/about/image-lotus-desktop.webp"
+              alt="Lotus flower"
+              fill
+              sizes="60vw"
             />
           </div>
 
