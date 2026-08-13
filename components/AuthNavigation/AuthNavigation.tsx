@@ -8,6 +8,7 @@ import LogoutModal from "../layout/LogoutModal/LogoutModal";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../common/Button/Button";
+import { logoutUser } from "@/lib/api/auth";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
@@ -19,8 +20,7 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   // Отримуємо стан та метод очищення
-  const { isAuthenticated, user, clearIsAuthenticated, fetchUser } =
-    useAuthStore();
+  const { isAuthenticated, clearIsAuthenticated, fetchUser } = useAuthStore();
 
   useEffect(() => {
     fetchUser();
@@ -31,7 +31,7 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
     try {
       setIsLoading(true);
 
-      // 1. Очищаємо Zustand стор
+      await logoutUser();
       clearIsAuthenticated();
 
       // 2. Закриваємо модалку
@@ -57,7 +57,7 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
         <div className={css.authenticated}>
           {/* Обгортка для приховування/показу кнопки на мобільних */}
           <div className={css.createBtnWrapper}>
-            <Link href="/articles/new" onClick={onLinkClick}>
+            <Link href="/articles/create" onClick={onLinkClick}>
               <Button variant="fill" size="md">
                 Create an article
               </Button>
