@@ -48,10 +48,6 @@
   margin-bottom: 16px;
 }
 
-.field:last-child {
-  margin-bottom: 0;
-}
-
 .label {
   font-family: var(--font-family);
   font-size: 12px;
@@ -113,14 +109,14 @@
 .passwordButton {
   position: absolute;
   top: 50%;
-  right: 12px;
+  right: 8px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 
   padding: 0;
   border: 0;
@@ -131,9 +127,9 @@
   transform: translateY(-50%);
 }
 
-.passwordButton svg {
-  width: 24px;
-  height: 24px;
+.passwordIcon {
+  fill: none;
+  stroke: currentColor;
 }
 
 /* =========================
@@ -164,7 +160,6 @@
 
   width: 100%;
   height: 38px;
-  margin-top: 27px;
 
   border: none;
   border-radius: var(--radius-pill);
@@ -246,16 +241,4 @@
   .passwordWrapper .input {
     padding-right: 32px;
   }
-
-  .passwordButton {
-    right: 8px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .passwordButton svg {
-    width: 16px;
-    height: 16px;
-  }
-
 }
