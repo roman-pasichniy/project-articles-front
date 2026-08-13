@@ -17,12 +17,15 @@ export default function LogoutModal({
   onConfirm,
 }: LogoutModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} ariaLabel="Підтвердження виходу">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      ariaLabel="Logout confirmation"
+      contentClassName={css.logoutModal}
+    >
       <div className={css.content}>
-        <h2 className={css.title}>Log out</h2>
-        <p className={css.description}>
-          Are you sure you want to log out of your account?
-        </p>
+        <h2 className={css.title}>Are you sure?</h2>
+        <p className={css.description}>We will miss you!</p>
         <div className={css.actions}>
           <button
             className={css.primaryButton}

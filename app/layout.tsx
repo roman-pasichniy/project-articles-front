@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import { Merienda } from "next/font/google";
 
 const manrope = Manrope({
   variable: "--font-manrope",
