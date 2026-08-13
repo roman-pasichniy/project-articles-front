@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthStore>()((set) => ({
         user: data,
         isAuthenticated: true,
       });
-    } catch (error) {
+    } catch {
       set({
         user: null,
         isAuthenticated: false,
