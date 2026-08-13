@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-<<<<<<< HEAD
 import { DM_Sans, Manrope, Noto_Sans } from "next/font/google";
-=======
-import { DM_Sans, Manrope, Merienda, Noto_Sans } from "next/font/google";
->>>>>>> b04af60c6df8788a93bd832ba8dfd571a37c1ffb
 import { QueryProvider } from "@/providers/QueryProvider";
 import "./globals.css";
 import Header from "@/components/layout/Header/Header";
