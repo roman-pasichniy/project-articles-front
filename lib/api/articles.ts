@@ -4,8 +4,7 @@ import type {
   GetArticlesParams,
 } from "@/types/article";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
 
 export async function getArticles(
   params: GetArticlesParams = {},
@@ -123,6 +122,27 @@ export async function addArticleToBookmarks(articleId: string) {
     throw new ArticlesApiError(
       response.status,
       data?.message ?? "Failed to save article",
+    );
+  }
+
+  return data;
+}
+
+export async function removeArticleFromBookmarks(articleId: string) {
+  const response = await fetch(
+    `${API_URL}/users/me/saved-articles/${articleId}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+    },
+  );
+
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new ArticlesApiError(
+      response.status,
+      data?.message ?? "Failed to remove article from saved articles",
     );
   }
 

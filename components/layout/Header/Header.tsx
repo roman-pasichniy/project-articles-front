@@ -1,5 +1,6 @@
 import Container from "@/components/common/Container/Container";
 import Link from "next/link";
+import MobileMenu from "@/components/layout/MobileMenu/MobileMenu";
 
 import css from "./Header.module.css";
 import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
@@ -36,8 +37,8 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        {/* 2. Вставляємо MobileMenu тут
-        <MobileMenu /> */}
+        {/* 2. Вставляємо MobileMenu тут */}
+        <MobileMenu />
       </Container>
     </header>
   );

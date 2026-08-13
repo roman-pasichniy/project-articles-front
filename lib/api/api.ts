@@ -1,17 +1,15 @@
 import axios from "axios";
+import type { User } from "@/types/user";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
 
 const instance = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: API_URL,
   withCredentials: true,
 });
 
-export const getCurrentUser = async () => {
-  try {
-    const response = await instance.get("/api/auth/current");
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
-    }
-  }
+export const getCurrentUser = async (): Promise<User> => {
+  const response = await instance.get<User>("/auth/current");
+
+  return response.data;
 };
