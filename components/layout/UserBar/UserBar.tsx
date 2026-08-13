@@ -18,10 +18,8 @@ export default function UserBar({ onLogoutClick }: UserBarProps) {
     fetchUser();
   }, [fetchUser]);
 
-  const name = user?.name || "Olena";
-  const avatarUrl =
-    user?.avatarUrl ||
-    "https://ac.goit.global/fullstack/react/default-avatar.jpg";
+  const name = user?.name || "User";
+  const avatarUrl = user?.avatarUrl;
   const firstLetter = name.charAt(0).toUpperCase() || "U";
 
   return (
