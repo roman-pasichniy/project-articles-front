@@ -1,76 +1,76 @@
+.formContainer{
+    position: relative;
+  max-width: 360px;
+  padding: 32px;
+  color: var(--gray);
+  margin-inline: auto;
+  border-radius: 40px;
+  background: var(--light-green); 
+  display: flex;
+  flex-direction: column;
+}
+
 .hiddenInput {
   display: none;
 }
-/* підправити */ .avatarLabel { 
+
+.avatarLabel {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px auto;
+  margin: 16px 0;
   cursor: pointer;
-  width: 140px;
-  height: 140px;
 }
 
-/* підправити */ .placeholderCircle {
-  width: 100%;
-  height: 100%;
+.placeholderCircle {
+  width: 136px;
+  height: 136px;
   border-radius: 50%;
-  background-color: #638875; /* зелений колір як на вашому макеті */
-  color: #000;
+  background-color: #638875;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease;
 }
+
 
 .placeholderCircle:hover {
   opacity: 0.9;
 }
 
-/* перевірити  */ .avatarImage {
-  width: 100%;
-  height: 100%;
+.avatarImage {
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  object-fit: cover; 
+  object-fit: cover;
 }
 
-.formContainer{
-    position: relative;
-  max-width: 360px;
-  height: 322px;
-  padding: 24px;
-  color: var(--gray);
-  margin-inline: auto;
-  border-radius: 40px;
-  background: var(--light-green); 
-  padding-bottom: 48px;
-  display: flex;
-  flex-direction: column;
-}
 
 .title {
-    margin-bottom: 24px;
      font-size: 32px; 
      font-weight: 700;
      color: #070721;
+     text-align: center;
+     margin: 0;
 }
 
 .icon-close {
-  stroke: black; 
+  width: 24px;      
+  height: 24px;
+  stroke: #070721; 
   fill: none;
-  position: absolute;
-  top: 16px;          /* Дистанція 16px від верхнього краю */
-  right: 16px;
-  width: 13.5px;
-  height: 13.5px;
+  stroke-width: 1px; 
+  stroke-linecap: round;
 }
 
 .closeBtn {
+position: absolute;
+  top: 16px;     
+  right: 16px;
   background: none;      
   border: none;           
   padding: 0;           
   cursor: pointer;      
-  display: inline-flex;    
+  display: flex;    
   align-items: center;
   justify-content: center;
   outline: none;
@@ -79,23 +79,16 @@
 }
 
 .buttonSave {
-  margin-top: auto;
-  width: 296px;
-  height: 38px;
-  border-radius: 30px;
-  border: none;
-  background-color: #649179;
-  transition: all 0.3s ease;
-  outline: 5px solid #cccccc;
-  outline-offset: 0;
-  margin-top: auto;
+  outline: none;
 }
 
 .buttonDisabled {
   background-color: transparent;
-  box-shadow: 0 0 0 2px #b0c4ba, 0 0 0 5px #d1ded8; 
   cursor: not-allowed;
   opacity: 0.6;
+  outline-offset: 0;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 5px #D3D3D3; 
+  background-color: #649179;
 }
 
 .buttonDisabled .saveText {
@@ -116,4 +109,18 @@
     font-weight: 700;
     font-size: 16px;
     color: #F7FFFB;
+}
+
+
+@media screen and (min-width: 768px) { 
+    .formContainer{
+  max-width: 522px;
+  padding: 48px;
+}
+}
+
+@media screen and (min-width: 1440px) { 
+    .formContainer{
+  max-width: 392px;
+}
 }
