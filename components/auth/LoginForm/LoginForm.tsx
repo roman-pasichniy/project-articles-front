@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import Button from "@/components/common/Button/Button";
 import { useLogin } from "@/hooks/useLogin";
 import type { LoginCredentials } from "@/types/auth";
+import { useAuthStore } from "@/store/authStore";
 
 import styles from "./LoginForm.module.css";
 
@@ -31,19 +32,18 @@ export default function LoginForm() {
 
   const router = useRouter();
 
-  const {
-    mutateAsync: login,
-    isPending,
-  } = useLogin();
+  const setUser = useAuthStore((state) => state.setUser);
+
+  const { mutateAsync: login, isPending } = useLogin();
 
   const handleSubmit = async (values: LoginCredentials) => {
     try {
-      await login(values);
+      const userData = await login(values);
+      setUser(userData);
 
       router.replace("/");
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Login failed";
+      const message = error instanceof Error ? error.message : "Login failed";
 
       toast.error(message);
     }
@@ -72,11 +72,7 @@ export default function LoginForm() {
             className={styles.input}
           />
 
-          <ErrorMessage
-            name="email"
-            component="p"
-            className={styles.error}
-          />
+          <ErrorMessage name="email" component="p" className={styles.error} />
         </div>
 
         <div className={styles.field}>

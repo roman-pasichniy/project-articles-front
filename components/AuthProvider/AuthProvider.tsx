@@ -2,33 +2,28 @@
 
 import { useEffect, ReactNode } from "react";
 import { useAuthStore } from "@/store/authStore";
-import { getCurrentUser } from "@/lib/api/api";
 
 type Props = {
   children: ReactNode;
 };
 
 export default function AuthProvider({ children }: Props) {
-  const setUser = useAuthStore((state) => state.setUser);
-  const clearIsAuthenticated = useAuthStore(
-    (state) => state.clearIsAuthenticated,
-  );
+  const logout = useAuthStore((state) => state.logout);
+  const fetchCurrentUser = useAuthStore((state) => state.fetchCurrentUser);
 
   useEffect(() => {
     let isMounted = true;
 
     const initAuth = async () => {
-      try {
-        // Одразу запитуємо поточного користувача
-        const user = await getCurrentUser();
+      const currentUser = useAuthStore.getState().user;
 
-        if (isMounted && user) {
-          setUser(user);
-        }
-      } catch {
-        // Якщо сесія недійсна/помилка — скидаємо авторизацію
-        if (isMounted) {
-          clearIsAuthenticated();
+      if (currentUser?._id) {
+        try {
+          await fetchCurrentUser();
+        } catch {
+          if (isMounted) {
+            logout();
+          }
         }
       }
     };
@@ -38,7 +33,7 @@ export default function AuthProvider({ children }: Props) {
     return () => {
       isMounted = false;
     };
-  }, [setUser, clearIsAuthenticated]);
+  }, [fetchCurrentUser, logout]);
 
   return <>{children}</>;
 }

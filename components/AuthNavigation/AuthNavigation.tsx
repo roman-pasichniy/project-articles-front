@@ -1,14 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
-import css from "./AuthNavigation.module.css";
 import UserBar from "../layout/UserBar/UserBar";
 import LogoutModal from "../layout/LogoutModal/LogoutModal";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Button from "../common/Button/Button";
-import { logoutUser } from "@/lib/api/auth";
+import css from "./AuthNavigation.module.css";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
@@ -16,46 +15,36 @@ interface AuthNavigationProps {
 
 export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
   const router = useRouter();
-  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  // Отримуємо стан та метод очищення
-  const { isAuthenticated, clearIsAuthenticated, fetchUser } = useAuthStore();
+  const { user, isLoggedIn, fetchCurrentUser, logout } = useAuthStore();
+
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    if (isLoggedIn && user?._id) {
+      fetchCurrentUser();
+    }
+  }, [isLoggedIn, user?._id, fetchCurrentUser]);
 
-  // Логіка підтвердження виходу
   const handleConfirmLogout = async () => {
     try {
-      setIsLoading(true);
-
-      await logoutUser();
-      clearIsAuthenticated();
-
-      // 2. Закриваємо модалку
+      setIsLoggingOut(true);
+      logout();
       setIsLogoutOpen(false);
-
-      if (onLinkClick) {
-        onLinkClick();
-      }
-
-      // 3. Редірект на головну
       router.push("/");
-      router.refresh();
+      if (onLinkClick) onLinkClick();
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
-      setIsLoading(false);
+      setIsLoggingOut(false);
     }
   };
 
   return (
     <div className={css.authNav}>
-      {isAuthenticated ? (
+      {isLoggedIn && user ? (
         <div className={css.authenticated}>
-          {/* Обгортка для приховування/показу кнопки на мобільних */}
           <div className={css.createBtnWrapper}>
             <Link href="/articles/create" onClick={onLinkClick}>
               <Button variant="fill" size="md">
@@ -64,16 +53,16 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
             </Link>
           </div>
 
-          {/* UserBar з даними залогіненого юзера */}
           <UserBar onLogoutClick={() => setIsLogoutOpen(true)} />
 
-          {/* Ваша модалка виходу */}
-          <LogoutModal
-            isOpen={isLogoutOpen}
-            isLoading={isLoading}
-            onClose={() => setIsLogoutOpen(false)}
-            onConfirm={handleConfirmLogout}
-          />
+          {isLogoutOpen && (
+            <LogoutModal
+              isOpen={isLogoutOpen}
+              isLoading={isLoggingOut}
+              onClose={() => setIsLogoutOpen(false)}
+              onConfirm={handleConfirmLogout}
+            />
+          )}
         </div>
       ) : (
         <div className={css.unauthenticated}>
