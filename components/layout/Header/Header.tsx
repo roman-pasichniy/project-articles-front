@@ -38,7 +38,13 @@ export default function Header() {
           </ul>
         </nav>
         {/* 2. Вставляємо MobileMenu тут */}
-        <MobileMenu />
+        <div className={css.tabletControls}>
+          <div className={css.tabletAction}>
+            <AuthNavigation variant="tablet" />
+          </div>
+
+          <MobileMenu />
+        </div>
       </Container>
     </header>
   );
