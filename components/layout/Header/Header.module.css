@@ -41,7 +41,15 @@
 .navLink:focus {
   color: var(--green);
 }
+.tabletControls {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
 
+.tabletAction {
+  display: none;
+}
 .authItem {
   display: flex;
   align-items: center;
@@ -52,15 +60,11 @@
    ========================== */
 @media screen and (min-width: 768px) {
   .header {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
   }
-
-  /* Показуємо основну навігацію на планшетах і десктопах */
-  .navigation {
-    display: flex;
-    align-items: center;
-    gap: 32px;
+  .tabletAction {
+    display: block;
   }
 }
 
@@ -74,6 +78,11 @@
   }
 
   .navigation {
+    display: flex;
+    align-items: center;
     gap: 40px;
+  }
+  .tabletControls {
+    display: none;
   }
 }
