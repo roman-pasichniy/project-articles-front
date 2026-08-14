@@ -1,7 +1,7 @@
 .userBar {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .profileLink {
@@ -9,7 +9,7 @@
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  color: var(--black);
+  color: var(--green-darker);
   transition: opacity 0.2s ease;
 }
 
@@ -37,33 +37,36 @@
 
 .avatarLetter {
   font-family: var(--font-family);
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 12px;
   color: var(--green-darker);
 }
 
 .userName {
   font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 12px;
   line-height: 1.2;
+  color: var(--green-darker);
 }
 
 .divider {
   width: 1px;
-  height: 24px;
-  background-color: var(--light-gray, #e0e0e0);
+  height: 39px;
+  background-color: var(--green-darker);
 }
 
 .exitBtn {
   background: transparent;
   border: none;
-  padding: 4px;
+  padding: 0px 0px 4px;
+  width: 52px;
+  height: 28px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--black);
+  color: var(--green-darker);
   transition: color 0.2s ease;
 }
 
@@ -73,10 +76,10 @@
 }
 
 .exitIcon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   stroke: currentColor;
-  stroke-width: 1.5px;
+  stroke-width: 0.5px;
   /* Забороняємо контейнеру стискати іконку */
   flex-shrink: 0;
 }

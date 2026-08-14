@@ -13,3 +13,18 @@ export type AuthUser = {
   createdAt?: string;
   updatedAt?: string;
 };
+export type RegisterCredentials = {
+  name: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+};
+
+export type RegisterResponse = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    avatarUrl?: string;
+  };
+};

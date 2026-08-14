@@ -1,5 +1,6 @@
 import Container from "@/components/common/Container/Container";
 import Link from "next/link";
+import MobileMenu from "@/components/layout/MobileMenu/MobileMenu";
 
 import css from "./Header.module.css";
 import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
@@ -8,7 +9,7 @@ import Logo from "@/components/common/Logo/Logo";
 export default function Header() {
   return (
     <header className={css.header}>
-      <Container>
+      <Container className="container">
         <Logo />
 
         {/* Основна навігація */}
@@ -21,7 +22,7 @@ export default function Header() {
             </li>
             <li>
               <Link href="/articles" className={css.navLink}>
-                + Articles
+                Articles
               </Link>
             </li>
             <li>
@@ -36,8 +37,8 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        {/* 2. Вставляємо MobileMenu тут
-        <MobileMenu /> */}
+        {/* 2. Вставляємо MobileMenu тут */}
+        <MobileMenu />
       </Container>
     </header>
   );

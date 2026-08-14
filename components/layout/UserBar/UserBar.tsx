@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "@/store/authStore";
 import styles from "./UserBar.module.css";
 
@@ -11,12 +11,16 @@ type UserBarProps = {
 };
 
 export default function UserBar({ onLogoutClick }: UserBarProps) {
-  const fetchUser = useAuthStore((state) => state.fetchUser);
+  const fetchCurrentUser = useAuthStore((state) => state.fetchCurrentUser);
   const user = useAuthStore((state) => state.user);
 
+  const [imageError, setImageError] = useState(false);
+
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    if (!user?._id) {
+      fetchCurrentUser();
+    }
+  }, [user?._id, fetchCurrentUser]);
 
   const name = user?.name || "User";
   const avatarUrl = user?.avatarUrl;
@@ -24,28 +28,28 @@ export default function UserBar({ onLogoutClick }: UserBarProps) {
 
   return (
     <div className={styles.userBar}>
-      {/* Посилання на профіль: містить аватарку та ім'я */}
       <Link href="/profile" className={styles.profileLink}>
         <span className={styles.avatar}>
-          {avatarUrl ? (
+          {avatarUrl && !imageError ? (
             <Image
               src={avatarUrl}
               alt={name}
               width={32}
               height={32}
               className={styles.avatarImg}
+              unoptimized
+              onError={() => setImageError(true)}
             />
           ) : (
             <span className={styles.avatarLetter}>{firstLetter}</span>
           )}
         </span>
+
         <span className={styles.userName}>{name}</span>
       </Link>
 
-      {/* Вертикальний розділювач */}
       <span className={styles.divider} aria-hidden="true" />
 
-      {/* Кнопка виходу */}
       <button
         type="button"
         onClick={onLogoutClick}
@@ -53,7 +57,7 @@ export default function UserBar({ onLogoutClick }: UserBarProps) {
         aria-label="Exit"
       >
         <svg className={styles.exitIcon}>
-          <use href="/icons/sprite.svg#icon-log-out" />
+          <use href="/icons/sprite.svg#icon-logout" />
         </svg>
       </button>
     </div>

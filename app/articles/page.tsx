@@ -1,5 +1,6 @@
 import ArticlesList from "@/components/articles/ArticlesList/ArticlesList";
 import Container from "@/components/common/Container/Container";
+import SectionTitle from "@/components/common/SectionTitle/SectionTitle";
 import styles from "./page.module.css";
 
 export default function ArticlesPage() {
@@ -7,8 +8,7 @@ export default function ArticlesPage() {
     <div className={styles.page}>
       <section className={styles.main}>
         <Container>
-          <h1 className={styles.title}>Articles</h1>
-          <p className={styles.description}>Browse community articles.</p>
+          <SectionTitle>Articles</SectionTitle>
           <ArticlesList />
         </Container>
       </section>

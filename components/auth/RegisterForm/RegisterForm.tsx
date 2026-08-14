@@ -5,6 +5,10 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import styles from "./RegisterForm.module.css";
+import { useRouter } from "next/navigation";
+import type { FormikHelpers } from "formik";
+import toast from "react-hot-toast";
+import { registerUser } from "@/lib/api/auth";
 
 interface RegisterFormValues {
   name: string;
@@ -45,9 +49,25 @@ const validationSchema = Yup.object({
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = async (values: RegisterFormValues) => {
-    console.log(values);
+  const handleSubmit = async (
+    values: RegisterFormValues,
+    { resetForm, setSubmitting }: FormikHelpers<RegisterFormValues>,
+  ) => {
+    try {
+      await registerUser(values);
+
+      toast.success("Account created successfully");
+      resetForm();
+      router.push("/login");
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Registration failed",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -123,14 +143,12 @@ export default function RegisterForm() {
                   className={styles.passwordButton}
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  <svg>
+                  <svg className={styles.passwordIcon} aria-hidden="true">
                     <use
-                      href={
-                        showPassword
-                          ? "#icon-eye-open"
-                          : "#icon-eye-closed"
-                      }
-                    ></use>
+                      href={`/icons/sprite.svg#${
+                        showPassword ? "icon-eye" : "icon-eye-crossed"
+                      }`}
+                    />
                   </svg>
                 </button>
               </div>
@@ -158,18 +176,14 @@ export default function RegisterForm() {
                 <button
                   type="button"
                   className={styles.passwordButton}
-                  onClick={() =>
-                    setShowRepeatPassword(!showRepeatPassword)
-                  }
+                  onClick={() => setShowRepeatPassword(!showRepeatPassword)}
                 >
-                  <svg>
+                  <svg className={styles.passwordIcon} aria-hidden="true">
                     <use
-                      href={
-                        showRepeatPassword
-                          ? "#icon-eye-open"
-                          : "#icon-close"
-                      }
-                    ></use>
+                      href={`/icons/sprite.svg#${
+                        showRepeatPassword ? "icon-eye" : "icon-eye-crossed"
+                      }`}
+                    />
                   </svg>
                 </button>
               </div>
@@ -183,11 +197,11 @@ export default function RegisterForm() {
 
             {/* SUBMIT */}
             <button
-              type="submit"
               className={styles.submitButton}
+              type="submit"
               disabled={isSubmitting}
             >
-              Create account
+              {isSubmitting ? "Creating account..." : "Create account"}
             </button>
 
             {/* LOGIN */}

@@ -1,44 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ArticlesFilter from "../ArticlesFilter/ArticlesFilter";
 import ArticlesItem from "../ArticlesItem/ArticlesItem";
 import Loader from "@/components/common/Loader/Loader";
-import Pagination from "@/components/common/Pagination/Pagination";
-import { useArticles } from "@/lib/query/useArticles";
-import type { GetArticlesParams } from "@/types/article";
+import { useInfiniteArticles } from "@/hooks/useInfiniteArticles";
 import styles from "./ArticlesList.module.css";
 
 const ARTICLES_PER_PAGE = 12;
 
-type SortBy = NonNullable<GetArticlesParams["sortBy"]>;
-type SortOrder = NonNullable<GetArticlesParams["sortOrder"]>;
+type Category = "all" | "popular";
 
 export default function ArticlesList() {
-  const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState<SortBy>("date");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
+  const [category, setCategory] = useState<Category>("all");
+  const listRef = useRef<HTMLUListElement>(null);
 
-  const { data, isLoading, isFetching, isError, error } = useArticles({
-    page,
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    isError,
+    error,
+  } = useInfiniteArticles({
     perPage: ARTICLES_PER_PAGE,
-    sortBy,
-    sortOrder,
+    ...(category === "popular" ? { category: "popular" } : {}),
   });
 
-  const changePage = (nextPage: number) => {
-    setPage(nextPage);
-    window.scrollTo({ top: 0 });
-  };
-
-  const changeSortBy = (value: SortBy) => {
-    setSortBy(value);
-    setPage(1);
-  };
-
-  const changeSortOrder = (value: SortOrder) => {
-    setSortOrder(value);
-    setPage(1);
+  const changeCategory = (value: Category) => {
+    setCategory(value);
   };
 
   if (isLoading) {
@@ -53,41 +44,63 @@ export default function ArticlesList() {
     );
   }
 
+  const articles = Array.from(
+    new Map(
+      (data?.pages.flatMap((page) => page.data) ?? []).map((article) => [
+        article._id,
+        article,
+      ]),
+    ).values(),
+  );
+
+  const handleLoadMore = async () => {
+    const previousArticlesCount = articles.length;
+
+    await fetchNextPage();
+
+    requestAnimationFrame(() => {
+      const newArticle = listRef.current?.children[previousArticlesCount] as
+        | HTMLElement
+        | undefined;
+
+      newArticle?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  };
+
   return (
     <>
-      <ArticlesFilter
-        sortBy={sortBy}
-        sortOrder={sortOrder}
-        onSortByChange={changeSortBy}
-        onSortOrderChange={changeSortOrder}
-      />
+      <div className={styles.toolbar}>
+        <p className={styles.count}>
+          {data?.pages[0]?.totalItems ?? 0} articles
+        </p>
 
-      {!data || data.data.length === 0 ? (
-        <p>No articles found.</p>
+        <ArticlesFilter category={category} onCategoryChange={changeCategory} />
+      </div>
+
+      {articles.length === 0 ? (
+        <p className={styles.empty}>No articles found.</p>
       ) : (
-        <ul className={styles.list}>
-          {data.data.map((article) => (
+        <ul ref={listRef} className={styles.list}>
+          {articles.map((article) => (
             <li key={article._id}>
-              <ArticlesItem
-                articleId={article._id}
-                title={article.title}
-                description={article.description}
-                photo={article.photo}
-                author={article.author ?? "Harmoniq author"}
-              />
+              <ArticlesItem article={article} />
             </li>
           ))}
         </ul>
       )}
 
-      {data && (
-        <Pagination
-          currentPage={page}
-          totalPages={data.totalPages}
-          onPrevious={() => changePage(page - 1)}
-          onNext={() => changePage(page + 1)}
-          disabled={isFetching}
-        />
+      {hasNextPage && (
+        <button
+          type="button"
+          className={styles.loadMore}
+          onClick={handleLoadMore}
+          disabled={isFetchingNextPage}
+        >
+          {isFetchingNextPage ? "Loading..." : "Load More"}
+        </button>
       )}
     </>
   );
