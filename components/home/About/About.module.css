@@ -1,5 +1,4 @@
 .section {
-  padding-block: 0px;
   background-color: var(--white);
 }
 
@@ -69,6 +68,7 @@
 @media screen and (min-width: 768px) {
   .content {
     flex-direction: row;
+    justify-content: space-between;
     flex-wrap: wrap;
   }
 
