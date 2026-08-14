@@ -13,9 +13,6 @@ export default async function AuthorPage({
       <section className={styles.main}>
         <Container>
           <AuthorInfo authorId={authorId} />
-
-          <h2 className={styles.title}>Created articles</h2>
-
           <AuthorArticlesList authorId={authorId} />
         </Container>
       </section>

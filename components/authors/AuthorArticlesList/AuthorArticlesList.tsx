@@ -6,8 +6,9 @@ import { useUserArticles } from "@/lib/query/useUserArticles";
 import ArticlesItem from "@/components/articles/ArticlesItem/ArticlesItem";
 import Loader from "@/components/common/Loader/Loader";
 import styles from "./AuthorArticlesList.module.css";
+import Button from "@/components/common/Button/Button";
 
-const ARTICLES_PER_PAGE = 10;
+const ARTICLES_PER_PAGE = 12;
 
 type AuthorArticlesListProps = {
   authorId: string;
@@ -69,9 +70,15 @@ export default function AuthorArticlesList({
       </ul>
 
       {hasNextPage && (
-        <button type="button" onClick={loadMore} disabled={isFetchingNextPage}>
+        <Button
+          variant="fill"
+          size="lg"
+          className={styles.loadMore}
+          onClick={loadMore}
+          disabled={isFetchingNextPage}
+        >
           {isFetchingNextPage ? "Loading..." : "Load More"}
-        </button>
+        </Button>
       )}
     </>
   );

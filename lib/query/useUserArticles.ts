@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getUserArticles } from "@/lib/api/users";
 import type { UserArticlesResponse } from "@/types/article";
 
-export function useUserArticles(userId: string, perPage = 10) {
+export function useUserArticles(userId: string, perPage = 12) {
   return useInfiniteQuery({
     queryKey: ["userArticles", userId, perPage],
 

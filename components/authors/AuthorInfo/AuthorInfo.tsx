@@ -1,11 +1,3 @@
-// import styles from "./AuthorInfo.module.css";
-
-// type AuthorInfoProps = { authorId?: string };
-
-// export default function AuthorInfo({ authorId }: AuthorInfoProps) {
-//   return <section className={styles.info}><h1>Author profile</h1><p>{authorId ?? "Author information"}</p></section>;
-// }
-
 import { getUserById } from "@/lib/api/users";
 import styles from "./AuthorInfo.module.css";
 import Image from "next/image";
@@ -21,18 +13,23 @@ export default async function AuthorInfo({ authorId }: AuthorInfoProps) {
 
   return (
     <section className={styles.info}>
-      <h1>{author.name}</h1>
-
       {author.avatarUrl && (
         <Image
+          className={styles.avatar}
           src={author.avatarUrl}
           alt={author.name}
-          width={120}
-          height={120}
+          width={124}
+          height={124}
         />
       )}
 
-      <p>Articles: {author.articlesAmount}</p>
+      <div className={styles.details}>
+        <h1 className={styles.name}>{author.name}</h1>
+
+        <p className={styles.articlesAmount}>
+          {author.articlesAmount} articles
+        </p>
+      </div>
     </section>
   );
 }

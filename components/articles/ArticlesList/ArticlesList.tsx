@@ -39,9 +39,7 @@ export default function ArticlesList() {
   if (isError) {
     return (
       <p role="alert">
-        {error instanceof Error
-          ? error.message
-          : "Failed to load articles"}
+        {error instanceof Error ? error.message : "Failed to load articles"}
       </p>
     );
   }
@@ -56,10 +54,16 @@ export default function ArticlesList() {
   );
 
   const handleLoadMore = async () => {
+    const previousArticlesCount = articles.length;
+
     await fetchNextPage();
 
     requestAnimationFrame(() => {
-      listRef.current?.scrollIntoView({
+      const newArticle = listRef.current?.children[previousArticlesCount] as
+        | HTMLElement
+        | undefined;
+
+      newArticle?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
@@ -73,10 +77,7 @@ export default function ArticlesList() {
           {data?.pages[0]?.totalItems ?? 0} articles
         </p>
 
-        <ArticlesFilter
-          category={category}
-          onCategoryChange={changeCategory}
-        />
+        <ArticlesFilter category={category} onCategoryChange={changeCategory} />
       </div>
 
       {articles.length === 0 ? (
