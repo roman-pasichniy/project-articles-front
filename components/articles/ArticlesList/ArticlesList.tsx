@@ -12,7 +12,7 @@ const ARTICLES_PER_PAGE = 12;
 type Category = "all" | "popular";
 
 export default function ArticlesList() {
-  const [category, setCategory] = useState<Category>("popular");
+  const [category, setCategory] = useState<Category>("all");
   const listRef = useRef<HTMLUListElement>(null);
 
   const {
