@@ -11,9 +11,13 @@ import css from "./AuthNavigation.module.css";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
+  variant?: "default" | "tablet" | "menu";
 }
 
-export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
+export default function AuthNavigation({
+  onLinkClick,
+  variant = "default",
+}: AuthNavigationProps) {
   const router = useRouter();
 
   const { user, isLoggedIn, fetchCurrentUser, logout } = useAuthStore();
@@ -40,6 +44,81 @@ export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
       setIsLoggingOut(false);
     }
   };
+
+  if (variant === "tablet") {
+    return (
+      <div className={css.tabletAuth}>
+        {isLoggedIn && user ? (
+          <Link
+            href="/articles/create"
+            className={css.compactButton}
+            onClick={onLinkClick}
+          >
+            Create an article
+          </Link>
+        ) : (
+          <Link
+            href="/register"
+            className={css.compactButton}
+            onClick={onLinkClick}
+          >
+            Join now
+          </Link>
+        )}
+      </div>
+    );
+  }
+
+  if (variant === "menu") {
+    return (
+      <div className={css.menuAuth}>
+        {isLoggedIn && user ? (
+          <>
+            <Link href="/profile" onClick={onLinkClick}>
+              My Profile
+            </Link>
+
+            <div className={css.mobileMenuAction}>
+              <Link
+                href="/articles/create"
+                className={css.compactButton}
+                onClick={onLinkClick}
+              >
+                Create an article
+              </Link>
+            </div>
+
+            <UserBar onLogoutClick={() => setIsLogoutOpen(true)} />
+
+            {isLogoutOpen && (
+              <LogoutModal
+                isOpen={isLogoutOpen}
+                isLoading={isLoggingOut}
+                onClose={() => setIsLogoutOpen(false)}
+                onConfirm={handleConfirmLogout}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            <Link href="/login" onClick={onLinkClick}>
+              Log in
+            </Link>
+
+            <div className={css.mobileMenuAction}>
+              <Link
+                href="/register"
+                className={css.compactButton}
+                onClick={onLinkClick}
+              >
+                Join now
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className={css.authNav}>

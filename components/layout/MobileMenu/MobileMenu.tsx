@@ -1,12 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
 import styles from "./MobileMenu.module.css";
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const html = document.documentElement;
+    const body = document.body;
+
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen]);
 
   const closeMenu = () => {
     setIsOpen(false);
@@ -53,7 +81,7 @@ export default function MobileMenu() {
               Creators
             </Link>
 
-            <AuthNavigation onLinkClick={closeMenu} />
+            <AuthNavigation variant="menu" onLinkClick={closeMenu} />
           </nav>
         </div>
       )}
