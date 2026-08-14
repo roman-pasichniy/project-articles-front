@@ -1,2 +1,119 @@
-.form { min-height: 280px; padding: 24px; border: 1px dashed var(--green); border-radius: var(--radius-sm); color: var(--gray); }
+.hiddenInput {
+  display: none;
+}
+/* підправити */ .avatarLabel { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  cursor: pointer;
+  width: 140px;
+  height: 140px;
+}
 
+/* підправити */ .placeholderCircle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #638875; /* зелений колір як на вашому макеті */
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.placeholderCircle:hover {
+  opacity: 0.9;
+}
+
+/* перевірити  */ .avatarImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover; 
+}
+
+.formContainer{
+    position: relative;
+  max-width: 360px;
+  height: 322px;
+  padding: 24px;
+  color: var(--gray);
+  margin-inline: auto;
+  border-radius: 40px;
+  background: var(--light-green); 
+  padding-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+    margin-bottom: 24px;
+     font-size: 32px; 
+     font-weight: 700;
+     color: #070721;
+}
+
+.icon-close {
+  stroke: black; 
+  fill: none;
+  position: absolute;
+  top: 16px;          /* Дистанція 16px від верхнього краю */
+  right: 16px;
+  width: 13.5px;
+  height: 13.5px;
+}
+
+.closeBtn {
+  background: none;      
+  border: none;           
+  padding: 0;           
+  cursor: pointer;      
+  display: inline-flex;    
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  width: 24px;
+  height: 24px;
+}
+
+.buttonSave {
+  margin-top: auto;
+  width: 296px;
+  height: 38px;
+  border-radius: 30px;
+  border: none;
+  background-color: #649179;
+  transition: all 0.3s ease;
+  outline: 5px solid #cccccc;
+  outline-offset: 0;
+  margin-top: auto;
+}
+
+.buttonDisabled {
+  background-color: transparent;
+  box-shadow: 0 0 0 2px #b0c4ba, 0 0 0 5px #d1ded8; 
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.buttonDisabled .saveText {
+  color: #fff;
+}
+
+.buttonActive {
+  background-color: #649179;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.buttonActive .saveText {
+  color: #ffffff;
+}
+
+.saveText {
+    font-weight: 700;
+    font-size: 16px;
+    color: #F7FFFB;
+}
