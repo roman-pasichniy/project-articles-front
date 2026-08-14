@@ -53,7 +53,7 @@ export default function UserBar({ onLogoutClick }: UserBarProps) {
         aria-label="Exit"
       >
         <svg className={styles.exitIcon}>
-          <use href="/icons/sprite.svg#icon-log-out" />
+          <use href="/icons/sprite.svg#icon-logout" />
         </svg>
       </button>
     </div>

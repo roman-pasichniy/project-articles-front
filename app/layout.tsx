@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { DM_Sans, Manrope, Merienda, Noto_Sans } from "next/font/google";
+import { DM_Sans, Manrope, Noto_Sans } from "next/font/google";
 import { QueryProvider } from "@/providers/QueryProvider";
 import "./globals.css";
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import { Merienda } from "next/font/google";
 
 const manrope = Manrope({
   variable: "--font-manrope",
