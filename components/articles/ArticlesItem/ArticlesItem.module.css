@@ -87,6 +87,26 @@
   font-weight: 700;
   line-height: normal;
   white-space: nowrap;
+
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.learnMore:hover {
+  background-color: var(--green-darker);
+  border-color: var(--green-darker);
+  color: var(--white);
+}
+
+.learnMore:focus {
+  background-color: #649179;
+  border-color: #649179;
+  color: var(--white);
+  box-shadow: 0 0 0 2px #FFFFFF;
 }
 
 @media screen and (max-width: 767px) {
