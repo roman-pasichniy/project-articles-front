@@ -1,5 +1,5 @@
 .hero {
-  padding-block: 0 48px;
+  padding-block: 16px 72px;
 }
 
 .content {
@@ -8,13 +8,16 @@
   gap: 12px;
 }
 
+.image,
+.title {
+  width: 343px;
+}
+
 .image {
   background-image: url("/images/hero/hero-image-mob.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-
-  width: 100%;
   height: 320px;
 }
 
@@ -24,10 +27,9 @@
 }
 
 .title {
-  width: 373px;
-  max-width: calc(100vw - 2px);
+  line-height: 1.4;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 38px;
   color: var(--green-darker);
 }
 
@@ -160,7 +162,6 @@
   .title {
     width: 599px;
     max-width: 599px;
-
     font-size: 92px;
     font-weight: 800;
     line-height: 1;
