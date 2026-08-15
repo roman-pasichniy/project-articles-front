@@ -4,21 +4,18 @@
 
 .content {
   display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: 12px;
 }
 
-.image,
-.title {
-  width: 343px;
-}
-
 .image {
+  width: 100%;
+  aspect-ratio: 361 / 322;
   background-image: url("/images/hero/hero-image-mob.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 320px;
 }
 
 .copy {
@@ -26,13 +23,23 @@
   flex-direction: column;
 }
 
+/* .title {
+  width: 100%;
+  min-width: 0;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  color: var(--green-darker);
+} */
 .title {
+  width: 100%;
+  max-width: 343px;
   line-height: 1.4;
   font-weight: 700;
   font-size: 38px;
   color: var(--green-darker);
 }
-
 .title em {
   font-family: "Merienda", sans-serif;
   font-style: normal;
@@ -186,7 +193,7 @@
     position: absolute;
     z-index: 1;
     top: 0;
-    left: 430px;
+    right: 0;
     width: 805px;
     height: 562px;
     background-image: url("/images/hero/hero-image-dsk.webp");
