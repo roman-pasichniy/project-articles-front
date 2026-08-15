@@ -86,6 +86,14 @@
 .loginBtn {
   border: none !important;
   background-color: transparent;
+
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: normal !important;
+  overflow: visible !important;
+
+  font-weight: 700;
+  font-size: 12px;
 }
 
 /* Tablet */
@@ -119,47 +127,3 @@
     display: block;
   }
 }
-/* .authNav {
-  display: flex;
-  align-items: center;
-} */
-
-/* Блок для НЕавторизованого користувача (Log in / Join now) */
-/* .unauthenticated {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-} */
-
-/* Блок для авторизованого користувача (Create article / UserBar) */
-/* .authenticated {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-} */
-
-/* Приховуємо кнопку "Create an article" на мобільних пристроях,
-   якщо вона має відображатися лише в бургер-меню або на десктопі */
-/* .createBtnWrapper {
-  display: none;
-} */
-
-/* ==========================
-   TABLET & DESKTOP (768px +)
-   ========================== */
-/* @media screen and (min-width: 768px) {
-  .unauthenticated,
-  .authenticated {
-    gap: 16px;
-  } */
-
-/* Показуємо кнопку "Create an article" на планшетах і десктопах */
-/* .createBtnWrapper {
-    display: block;
-  }
-
-  .loginBtn {
-    border: none !important;
-    background: transparent;
-  }
-} */
