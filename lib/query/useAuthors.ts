@@ -2,34 +2,42 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import type { IAuthor } from "@/types/author";
 
 interface FetchAuthorsResponse {
+  page: number;
+  perPage: number;
+  totalItems: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+  authors: IAuthor[];
+}
+
+interface InfiniteAuthorsResult {
   data: IAuthor[];
   nextPage: number | null;
 }
 
-const LIMIT = 20; // Жорстка умова вашого технічного завдання
+const LIMIT = 20;
 
 const fetchAuthorsRequest = async ({
   pageParam = 1,
-}): Promise<FetchAuthorsResponse> => {
-  // Робимо запит до бекенду з урахуванням поточної сторінки та ліміту в 20 елементів
+}): Promise<InfiniteAuthorsResult> => {
   const res = await fetch(`/api/authors?page=${pageParam}&limit=${LIMIT}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch authors");
   }
 
-  const data = await res.json();
+  const responseData: FetchAuthorsResponse = await res.json();
 
   return {
-    data,
-    // Якщо сервер повернув менше 20 елементів, значить дані в БД закінчилися
-    nextPage: data.length === LIMIT ? pageParam + 1 : null,
+    data: responseData.authors || [],
+    nextPage: responseData.hasNextPage ? responseData.page + 1 : null,
   };
 };
 
 export function useInfiniteAuthors() {
   return useInfiniteQuery({
-    queryKey: ["authors", "list"], // Унікальний ключ для кешування React Query
+    queryKey: ["authors", "list", LIMIT],
     queryFn: fetchAuthorsRequest,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextPage,

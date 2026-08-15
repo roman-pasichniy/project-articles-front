@@ -1,2 +1,0 @@
-.card { display: grid; justify-items: center; gap: 12px; text-align: center; }
-.avatar { width: min(100%, 160px); aspect-ratio: 1; border-radius: 50%; background: var(--light-green); }
