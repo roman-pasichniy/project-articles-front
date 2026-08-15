@@ -1,6 +1,4 @@
 .section {
-  padding-top: 72px;
-  padding-bottom: 72px;
   background-color: var(--white);
 }
 
@@ -81,11 +79,6 @@
     height: 326px;
   }
 
-  /* .image:nth-child(2) {
-    width: calc(40% - 16px);
-    flex: 0 0 calc(40% - 16px);
-    height: 326px;
-  } */
   .image:nth-child(2) {
     width: calc(40% - 8px);
     flex: 0 0 calc(40% - 8px);
