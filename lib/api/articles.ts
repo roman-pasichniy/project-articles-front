@@ -57,9 +57,6 @@ export async function getPopularArticles() {
     category: "popular",
   });
 
-  console.log("POPULAR API RESPONSE:", response);
-  console.log("POPULAR ARTICLES:", response.data);
-
   return response.data;
 }
 
