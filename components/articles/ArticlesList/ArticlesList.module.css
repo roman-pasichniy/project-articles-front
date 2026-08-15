@@ -19,7 +19,7 @@
   padding: 0;
   border: none;
   border-radius: var(--radius-pill);
-  background-color: var(--green-darker);
+  background-color: #649179;
   color: var(--white);
   font-size: 16px;
   font-weight: 700;
@@ -33,7 +33,13 @@
 }
 
 .loadMore:hover {
-  background-color: var(--green);
+  background-color: var(--green-darker);
+}
+
+.loadMore:focus {
+  background-color: #649179;
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
 }
 
 .loadMore:disabled {

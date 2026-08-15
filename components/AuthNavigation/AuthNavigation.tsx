@@ -11,12 +11,14 @@ import css from "./AuthNavigation.module.css";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
-  variant?: "default" | "tablet" | "menu";
+  variant?: "default" | "tablet" | "menu" | "nav";
+  className?: string;
 }
 
 export default function AuthNavigation({
   onLinkClick,
   variant = "default",
+  className,
 }: AuthNavigationProps) {
   const router = useRouter();
 
@@ -117,6 +119,18 @@ export default function AuthNavigation({
           </>
         )}
       </div>
+    );
+  }
+
+  if (variant === "nav") {
+    if (!isLoggedIn) return null;
+
+    return (
+      <li>
+        <Link href="/profile" className={className}>
+          My profile
+        </Link>
+      </li>
     );
   }
 

@@ -6,7 +6,6 @@ import styles from "./PopularArticles.module.css";
 
 export default async function PopularArticles() {
   const articles = await getPopularArticles();
-
   return (
     <section className={styles.section} id="popular-articles">
       <Container>
