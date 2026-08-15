@@ -1,5 +1,6 @@
 .hero {
   padding-top: 16px;
+  padding-bottom: 72px;
 }
 
 .content {
@@ -21,26 +22,15 @@
 .copy {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
-/* .title {
-  width: 100%;
-  min-width: 0;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.4;
-  overflow-wrap: break-word;
-  color: var(--green-darker);
-} */
 .title {
   width: 100%;
   max-width: 343px;
   line-height: 1.4;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 38px;
   color: var(--green-darker);
-  width: 361px;
 }
 .title em {
   font-family: "Merienda", sans-serif;
@@ -59,13 +49,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   min-height: 57px;
+  width: 100%;
   border-radius: 64px;
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
+
   transition:
     background-color 200ms ease,
     color 200ms ease,
@@ -98,26 +89,31 @@
 
 @media screen and (min-width: 768px) {
   .hero {
-    padding-top: 22px;
-    padding-bottom: 22px;
+    padding-top: 48px;
   }
 
   .content {
     position: relative;
-    display: block;
+    height: 383px;
   }
 
   .copy {
     position: relative;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 430px;
+    height: 383px;
   }
 
   .title {
-    max-width: 430px;
+    max-width: 380px;
   }
 
   .actions {
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
@@ -132,13 +128,11 @@
     z-index: 1;
     top: 0;
     right: 0;
-
     width: 430px;
-    aspect-ratio: 430 / 383;
-
+    height: 383px;
     background-image: url("/images/hero/hero-image-tab.webp");
-    background-position: center bottom;
     background-repeat: no-repeat;
+    background-position: center bottom;
     background-size: cover;
   }
 }
@@ -149,28 +143,31 @@
 
 @media screen and (min-width: 1440px) {
   .hero {
-    padding-top: 48px;
-    padding-bottom: 96px;
+    padding-bottom:72px;
   }
+
   .content {
     position: relative;
-    min-height: 562px;
+    height: 562px;
   }
 
   .copy {
+    position: relative;
+    z-index: 2;
+
     width: 599px;
   }
 
   .title {
     width: 599px;
     max-width: 599px;
-
     font-size: 92px;
     font-weight: 800;
     line-height: 1;
   }
 
   .actions {
+    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 16px;
@@ -180,20 +177,21 @@
   .primaryButton,
   .outlineButton {
     width: 184px;
+    font-size: 18px;
+    font-weight: 700;
   }
 
   .image {
     position: absolute;
+    z-index: 1;
     top: 0;
     right: 0;
     width: 805px;
-    aspect-ratio: 805 / 562;
-
+    height: 562px;
     background-image: url("/images/hero/hero-image-dsk.webp");
-    background-position: center;
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
-
     border-radius: 32px 32px 32px 0;
   }
 }
