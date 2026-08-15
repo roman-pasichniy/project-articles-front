@@ -12,7 +12,6 @@ export default function Header() {
       <Container className="container">
         <Logo />
 
-        {/* Основна навігація */}
         <nav aria-label="Main Navigation">
           <ul className={css.navigation}>
             <li>
@@ -31,14 +30,21 @@ export default function Header() {
               </Link>
             </li>
 
-            {/* Компонент авторизації / профілю */}
+            <AuthNavigation variant="nav" className={css.navLink} />
+
             <li className={css.authItem}>
               <AuthNavigation />
             </li>
           </ul>
         </nav>
-        {/* 2. Вставляємо MobileMenu тут */}
-        <MobileMenu />
+
+        <div className={css.tabletControls}>
+          <div className={css.tabletAction}>
+            <AuthNavigation variant="tablet" />
+          </div>
+
+          <MobileMenu />
+        </div>
       </Container>
     </header>
   );

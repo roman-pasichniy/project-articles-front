@@ -25,30 +25,68 @@
 .backdrop {
   position: fixed;
   z-index: 1000;
-  inset: 0;
-  top: 62px;
+  inset: 62px 0 0;
+  overflow: hidden;
   background-color: rgb(7 7 33 / 40%);
 }
 
 .menu {
   display: flex;
+  width: 100%;
+  min-height: 100%;
   flex-direction: column;
-  gap: 20px;
-  padding: 24px 16px;
-  background-color: var(--white);
+  align-items: center;
+  gap: 32px;
+  padding: 32px 16px;
+  overflow: hidden;
+  background-color: var(--light-green);
 }
 
 .menu a {
-  color: var(--black);
+  color: var(--green-darker);
   text-decoration: none;
 }
+.menu > a {
+  position: relative;
+  display: inline-block;
+}
 
+.menu > a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+
+.menu > a:hover::after,
+.menu > a:focus-visible::after {
+  transform: scaleX(1);
+}
 .menu a:hover,
 .menu a:focus-visible {
   color: var(--green-darker);
 }
 
 @media screen and (min-width: 768px) {
+  .mobileMenu {
+    display: block;
+  }
+  .backdrop {
+    inset: 74px 0 0;
+  }
+  .menu {
+    gap: 32px;
+    padding: 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
   .mobileMenu {
     display: none;
   }

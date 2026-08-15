@@ -1,15 +1,65 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
 import styles from "./MobileMenu.module.css";
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const html = document.documentElement;
+    const body = document.body;
+
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, [pathname]);
 
   const closeMenu = () => {
     setIsOpen(false);
+  };
+
+  const handleLinkClick = () => {
+    setIsOpen(false);
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto",
+      });
+    });
   };
 
   return (
@@ -41,19 +91,19 @@ export default function MobileMenu() {
             aria-label="Mobile navigation"
             onClick={(event) => event.stopPropagation()}
           >
-            <Link href="/" onClick={closeMenu}>
+            <Link href="/" onClick={handleLinkClick}>
               Home
             </Link>
 
-            <Link href="/articles" onClick={closeMenu}>
+            <Link href="/articles" onClick={handleLinkClick}>
               Articles
             </Link>
 
-            <Link href="/authors" onClick={closeMenu}>
+            <Link href="/authors" onClick={handleLinkClick}>
               Creators
             </Link>
 
-            <AuthNavigation onLinkClick={closeMenu} />
+            <AuthNavigation variant="menu" onLinkClick={handleLinkClick} />
           </nav>
         </div>
       )}
