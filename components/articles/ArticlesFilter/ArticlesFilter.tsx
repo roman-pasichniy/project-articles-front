@@ -2,7 +2,7 @@
 
 import styles from "./ArticlesFilter.module.css";
 
-type Category = "all" | "popular";
+export type Category = "all" | "popular" | "general";
 
 type ArticlesFilterProps = {
   category: Category;
@@ -16,15 +16,17 @@ export default function ArticlesFilter({
   return (
     <div className={styles.filter}>
       <label className={styles.field}>
-      <select
+        <span className={styles.visuallyHidden}>Filter by category</span>
+
+        <select
           className={styles.select}
           value={category}
-          onChange={(event) =>
-            onCategoryChange(event.target.value as Category)
-          }
+          aria-label="Filter articles by category"
+          onChange={(event) => onCategoryChange(event.target.value as Category)}
         >
           <option value="all">All</option>
           <option value="popular">Popular</option>
+          <option value="general">General</option>
         </select>
       </label>
     </div>

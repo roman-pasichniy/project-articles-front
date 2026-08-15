@@ -10,6 +10,7 @@ import {
 } from "@/lib/api/articles";
 import ModalErrorSave from "../ModalErrorSave/ModalErrorSave";
 import styles from "./ButtonAddToBookmarks.module.css";
+import { useAuthStore } from "@/store/authStore";
 
 type ButtonAddToBookmarksProps = {
   articleId: string;
@@ -18,23 +19,35 @@ type ButtonAddToBookmarksProps = {
 export default function ButtonAddToBookmarks({
   articleId,
 }: ButtonAddToBookmarksProps) {
-  const [isSaved, setIsSaved] = useState(false);
+  const user = useAuthStore((state) => state.user);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const fetchCurrentUser = useAuthStore((state) => state.fetchCurrentUser);
+  const isSaved =
+    user?.savedArticles?.some(
+      (savedArticleId) => String(savedArticleId) === articleId,
+    ) ?? false;
+
   const [isLoading, setIsLoading] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const handleSave = async () => {
     if (isLoading) return;
 
+    if (!isLoggedIn) {
+      setIsLoginModalOpen(true);
+      return;
+    }
+
     try {
       setIsLoading(true);
 
       if (isSaved) {
         await removeArticleFromBookmarks(articleId);
-        setIsSaved(false);
+        await fetchCurrentUser();
         toast.success("Article removed from saved articles");
       } else {
         await addArticleToBookmarks(articleId);
-        setIsSaved(true);
+        await fetchCurrentUser();
         toast.success("Article saved");
       }
     } catch (error) {
@@ -45,12 +58,12 @@ export default function ButtonAddToBookmarks({
         }
 
         if (error.status === 409) {
-          setIsSaved(true);
+          await fetchCurrentUser();
           return;
         }
 
         if (error.status === 404 && isSaved) {
-          setIsSaved(false);
+          await fetchCurrentUser();
           return;
         }
       }

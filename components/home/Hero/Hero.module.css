@@ -4,15 +4,14 @@
 
 .content {
   display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: 12px;
-  width: 100%;
-  position: relative;
-  min-height: 383px;
 }
 
 .image {
-  aspect-ratio: 361 / 320;
+  width: 100%;
+  aspect-ratio: 361 / 322;
   background-image: url("/images/hero/hero-image-mob.webp");
   background-position: center;
   background-repeat: no-repeat;
@@ -25,15 +24,24 @@
   width: 100%;
 }
 
+/* .title {
+  width: 100%;
+  min-width: 0;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  color: var(--green-darker);
+} */
 .title {
-  margin: 0;
+  width: 100%;
+  max-width: 343px;
   line-height: 1.4;
   font-weight: 700;
   font-size: 40px;
   color: var(--green-darker);
   width: 361px;
 }
-
 .title em {
   font-family: "Merienda", sans-serif;
   font-style: normal;
@@ -177,9 +185,7 @@
   .image {
     position: absolute;
     top: 0;
-    left: 420px;
-    right: auto;
-
+    right: 0;
     width: 805px;
     aspect-ratio: 805 / 562;
 

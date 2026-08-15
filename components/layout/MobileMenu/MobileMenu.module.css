@@ -22,30 +22,10 @@
   stroke: currentColor;
 }
 
-/* .backdrop {
-  position: fixed;
-  z-index: 1000;
-  inset: 0;
-  top: 62px;
-  background-color: rgb(7 7 33 / 40%);
-}
-
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 24px 16px;
-  background-color: var(--white);
-}
-
-.menu a {
-  color: var(--black);
-  text-decoration: none;
-} */
 .backdrop {
   position: fixed;
   z-index: 1000;
-  inset: 74px 0 0;
+  inset: 62px 0 0;
   overflow: hidden;
   background-color: rgb(7 7 33 / 40%);
 }
@@ -93,16 +73,13 @@
   color: var(--green-darker);
 }
 
-/* @media screen and (min-width: 768px) {
-  .mobileMenu {
-    display: none;
-  }
-} */
 @media screen and (min-width: 768px) {
   .mobileMenu {
     display: block;
   }
-
+  .backdrop {
+    inset: 74px 0 0;
+  }
   .menu {
     gap: 32px;
     padding: 32px;
