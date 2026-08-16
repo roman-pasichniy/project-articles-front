@@ -1,25 +1,23 @@
 import ArticleDetails from "@/components/articles/ArticleDetails/ArticleDetails";
 import ArticleRecommendations from "@/components/articles/ArticleRecommendations/ArticleRecommendations";
-import Container from "@/components/common/Container/Container";
-import styles from "./page.module.css";
+import css from "./page.module.css";
 
-type ArticlePageProps = {
+interface PageProps {
   params: Promise<{ articleId: string }>;
-};
+}
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
+export default async function ArticlePage({ params }: PageProps) {
   const { articleId } = await params;
 
   return (
-    <div className={styles.page}>
-      <section className={styles.main}>
-        <Container>
-          <p className={styles.eyebrow}>Article ID: {articleId}</p>
-          <h1 className={styles.title}>Article title</h1>
-          <ArticleDetails articleId={articleId} />
-          <ArticleRecommendations />
-        </Container>
-      </section>
+    <div className={css.page}>
+      <main className={css.main}>
+        <ArticleDetails articleId={articleId} />
+      </main>
+
+      <aside className={css.aside}>
+        <ArticleRecommendations currentArticleId={articleId} />
+      </aside>
     </div>
   );
 }

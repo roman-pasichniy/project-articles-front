@@ -1,4 +1,6 @@
 'use client';
+
+
 import css from "./UploadForm.module.css";
 import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation'; 
@@ -6,6 +8,7 @@ import toast from 'react-hot-toast';
 import  Button  from '@/components/common/Button/Button';
 
 export default function UploadForm() {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
  const [file, setFile] = useState<File | null>(null);
  const [preview, setPreview] = useState<string | null>(null);
   const router = useRouter();
@@ -29,15 +32,16 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     return;
   }
 
-  const formData = new FormData();
-  // Приклад підтягування даних попереднього кроку:
- // formData.append('name', savedData.name);
-  // formData.append('email', savedData.email);
-  // formData.append('password', savedData.password);
-  formData.append('avatar', file);
+    const savedDataString = localStorage.getItem('registerData');
+    const savedData = savedDataString ? JSON.parse(savedDataString) : {};
 
+const formData = new FormData();
+    if (savedData.name) formData.append('name', savedData.name);
+    if (savedData.email) formData.append('email', savedData.email);
+    if (savedData.password) formData.append('password', savedData.password);
+    formData.append('avatar', file);
   try {
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       body: formData,
     });
@@ -47,6 +51,8 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     if (!response.ok) {
       throw new Error(data.message || 'Registration failed');
     }
+
+localStorage.removeItem('registerData');
 
     toast.success('Successfully registered!');
     router.push('/home-authorised'); 
@@ -84,6 +90,7 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 
       <label htmlFor="avatar-upload" className={css.avatarLabel}>
         {preview ? (
+          
           <img src={preview} alt="Avatar preview" className={css.avatarImage} />
         ) : (
           <div className={css.placeholderCircle}>
