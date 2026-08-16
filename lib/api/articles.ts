@@ -1,10 +1,35 @@
 import type {
+  Article,
   ArticleDetails,
   ArticlesResponse,
   GetArticlesParams,
+  Category,
 } from "@/types/article";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+
+type RawArticle = Partial<Article & ArticleDetails> & {
+  photo?: string;
+  desc?: string;
+  content?: string;
+  category?: Category;
+};
+
+const mapArticle = (article: RawArticle): Article & ArticleDetails => ({
+  ...article,
+  _id: article._id ?? "",
+  img: article.img ?? article.photo ?? "",
+  title: article.title ?? "",
+  desc: article.desc ?? "",
+  article: article.article ?? article.content ?? "",
+  rate: article.rate ?? 0,
+  ownerId: article.ownerId ?? article.owner?._id ?? "",
+  date: article.date ?? "",
+  category: article.category ?? "general",
+  createdAt: article.createdAt ?? "",
+  updatedAt: article.updatedAt ?? "",
+  owner: article.owner ?? null,
+});
 
 export async function getArticles(
   params: GetArticlesParams = {},
@@ -47,10 +72,13 @@ export async function getArticles(
     );
   }
 
-  return data as ArticlesResponse;
+  return {
+    ...data,
+    data: Array.isArray(data?.data) ? data.data.map(mapArticle) : [],
+  } as ArticlesResponse;
 }
 
-export async function getPopularArticles() {
+export async function getPopularArticles(): Promise<Article[]> {
   const response = await getArticles({
     page: 1,
     perPage: 4,
@@ -104,7 +132,7 @@ export async function getArticleById(
     );
   }
 
-  return data as ArticleDetails;
+  return mapArticle(data);
 }
 
 export async function addArticleToBookmarks(articleId: string) {
