@@ -14,10 +14,12 @@ import { useAuthStore } from "@/store/authStore";
 
 type ButtonAddToBookmarksProps = {
   articleId: string;
+  showLabel?: boolean;
 };
 
 export default function ButtonAddToBookmarks({
   articleId,
+  showLabel = false,
 }: ButtonAddToBookmarksProps) {
   const user = useAuthStore((state) => state.user);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -88,6 +90,7 @@ export default function ButtonAddToBookmarks({
         disabled={isLoading}
         onClick={handleSave}
       >
+        {showLabel && <span>{isSaved ? "Saved" : "Save"}</span>}
         {isLoading ? (
           <span className={styles.loader}>
             <Loader

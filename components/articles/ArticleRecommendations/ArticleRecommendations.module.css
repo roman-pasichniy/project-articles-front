@@ -94,7 +94,6 @@
   border: 0;
   color: inherit;
 }
-
 @media screen and (max-width: 767px) {
   .panel {
     padding: 24px 16px 32px;
