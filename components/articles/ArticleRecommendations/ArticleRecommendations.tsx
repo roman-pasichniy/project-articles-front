@@ -45,7 +45,7 @@ export default async function ArticleRecommendations({
           <strong>Publication date:</strong> {publicationDate}
         </p>
 
-        <h2 className={styles.title}>You can also interested</h2>
+        <h2 className={styles.title}>You may also be interested</h2>
 
         <ul className={styles.list}>
           {recommendations.map((recommendation) => (
