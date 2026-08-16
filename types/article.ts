@@ -1,14 +1,12 @@
 export type Article = {
   _id: string;
-  photo: string;
+  img: string;
   title: string;
-  description: string;
-  content?: string;
-  rate?: number;
+  desc: string;
+  article: string;
+  rate: number;
   ownerId: string;
   date: string;
-  author?: string;
-  category?: "popular" | "general";
 };
 
 export type ArticlesResponse = {
@@ -22,17 +20,18 @@ export type ArticlesResponse = {
 export type GetArticlesParams = {
   page?: number;
   perPage?: number;
-  category?: "popular" | "general";
+  category?: "popular" | "all";
   sortBy?: "date" | "rate" | "title";
   sortOrder?: "asc" | "desc";
 };
 
 export type UserArticle = {
   _id: string;
+  img: string;
   title: string;
-  description: string;
-  photo: string;
-  author: string;
+  desc: string;
+  article: string;
+  rate: number;
   ownerId: string;
   date: string;
 };
