@@ -1,93 +1,176 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useAuthStore } from "@/lib/store/authStore";
-import css from "./AuthNavigation.module.css";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/authStore";
 import UserBar from "../layout/UserBar/UserBar";
 import LogoutModal from "../layout/LogoutModal/LogoutModal";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import Button from "../common/Button/Button";
+import css from "./AuthNavigation.module.css";
 
 interface AuthNavigationProps {
   onLinkClick?: () => void;
+  variant?: "default" | "tablet" | "menu" | "nav";
+  className?: string;
 }
 
-export default function AuthNavigation({ onLinkClick }: AuthNavigationProps) {
+export default function AuthNavigation({
+  onLinkClick,
+  variant = "default",
+  className,
+}: AuthNavigationProps) {
   const router = useRouter();
+
+  const { user, isLoggedIn, fetchCurrentUser, logout } = useAuthStore();
+
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // Отримуємо стан та метод очищення
-  const { isAuthenticated, user, clearIsAuthenticated } = useAuthStore();
+  useEffect(() => {
+    if (isLoggedIn && user?._id) {
+      fetchCurrentUser();
+    }
+  }, [isLoggedIn, user?._id, fetchCurrentUser]);
 
-  // Логіка підтвердження виходу
   const handleConfirmLogout = async () => {
     try {
-      setIsLoading(true);
-
-      // 1. Очищаємо Zustand стор
-      clearIsAuthenticated();
-
-      // 2. Закриваємо модалку
+      setIsLoggingOut(true);
+      logout();
       setIsLogoutOpen(false);
-
-      if (onLinkClick) {
-        onLinkClick();
-      }
-
-      // 3. Редірект на головну
       router.push("/");
-      router.refresh();
+      if (onLinkClick) onLinkClick();
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
-      setIsLoading(false);
+      setIsLoggingOut(false);
     }
   };
 
-  return (
-    <div className={css.authNav}>
-      {isAuthenticated ? (
-        <>
-          {/* Створити статтю */}
+  if (variant === "tablet") {
+    return (
+      <div className={css.tabletAuth}>
+        {isLoggedIn && user ? (
           <Link
-            href="/articles/new"
+            href="/articles/create"
+            className={css.compactButton}
             onClick={onLinkClick}
-            className={css.actionBtn}
           >
             Create an article
           </Link>
-
-          {/* UserBar з даними залогіненого юзера */}
-          <UserBar
-            name={user?.name}
-            avatarUrl={user?.avatarUrl}
-            onLogoutClick={() => setIsLogoutOpen(true)}
-          />
-
-          {/* Ваша модалка виходу */}
-          <LogoutModal
-            isOpen={isLogoutOpen}
-            isLoading={isLoading}
-            onClose={() => setIsLogoutOpen(false)}
-            onConfirm={handleConfirmLogout}
-          />
-        </>
-      ) : (
-        <>
-          {/* Неавторизований стан */}
-          <Link href="/login" onClick={onLinkClick} className={css.loginLink}>
-            Log in
-          </Link>
-
+        ) : (
           <Link
             href="/register"
+            className={css.compactButton}
             onClick={onLinkClick}
-            className={css.actionBtn}
           >
             Join now
           </Link>
-        </>
+        )}
+      </div>
+    );
+  }
+
+  if (variant === "menu") {
+    return (
+      <div className={css.menuAuth}>
+        {isLoggedIn && user ? (
+          <>
+            <Link href="/profile" onClick={onLinkClick}>
+              My Profile
+            </Link>
+
+            <div className={css.mobileMenuAction}>
+              <Link
+                href="/articles/create"
+                className={css.compactButton}
+                onClick={onLinkClick}
+              >
+                Create an article
+              </Link>
+            </div>
+
+            <UserBar onLogoutClick={() => setIsLogoutOpen(true)} />
+
+            {isLogoutOpen && (
+              <LogoutModal
+                isOpen={isLogoutOpen}
+                isLoading={isLoggingOut}
+                onClose={() => setIsLogoutOpen(false)}
+                onConfirm={handleConfirmLogout}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            <Link href="/login" onClick={onLinkClick}>
+              Log in
+            </Link>
+
+            <div className={css.mobileMenuAction}>
+              <Link
+                href="/register"
+                className={css.compactButton}
+                onClick={onLinkClick}
+              >
+                Join now
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  if (variant === "nav") {
+    if (!isLoggedIn) return null;
+
+    return (
+      <li>
+        <Link href="/profile" className={className}>
+          My profile
+        </Link>
+      </li>
+    );
+  }
+
+  return (
+    <div className={css.authNav}>
+      {isLoggedIn && user ? (
+        <div className={css.authenticated}>
+          <div className={css.createBtnWrapper}>
+            <Link href="/articles/create" onClick={onLinkClick}>
+              <Button variant="fill" size="md">
+                Create an article
+              </Button>
+            </Link>
+          </div>
+
+          <UserBar onLogoutClick={() => setIsLogoutOpen(true)} />
+
+          {isLogoutOpen && (
+            <LogoutModal
+              isOpen={isLogoutOpen}
+              isLoading={isLoggingOut}
+              onClose={() => setIsLogoutOpen(false)}
+              onConfirm={handleConfirmLogout}
+            />
+          )}
+        </div>
+      ) : (
+        <div className={css.unauthenticated}>
+          <Link href="/login" onClick={onLinkClick}>
+            <Button variant="outline" size="md" className={css.loginBtn}>
+              Log in
+            </Button>
+          </Link>
+
+          <Link href="/register" onClick={onLinkClick}>
+            <Button variant="fill" size="md">
+              Join now
+            </Button>
+          </Link>
+        </div>
       )}
     </div>
   );

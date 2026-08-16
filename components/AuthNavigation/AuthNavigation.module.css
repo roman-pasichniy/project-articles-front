@@ -1,75 +1,129 @@
-/* Базові стилі для мобільних екранів */
 .authNav {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
+  align-items: center;
 }
 
-.loginLink,
-.userLink {
-  color: #2d4038;
-  font-size: 16px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.loginLink:hover,
-.userLink:hover {
-  color: #549179;
-}
-
-.actionBtn {
+.unauthenticated {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.authenticated {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.createBtnWrapper {
+  display: none;
+}
+
+/* Компактна авторизаційна кнопка в планшетному Header */
+
+.tabletAuth {
+  display: flex;
+  align-items: center;
+}
+
+.compactButton {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
   justify-content: center;
-  background-color: #549179;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  height: 46px;
-  padding: 0 20px;
-  border-radius: 64px;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-.actionBtn:hover {
-  background-color: #437562;
-}
-
-.logoutBtn {
-  background: transparent;
+  padding: 12px 16px;
   border: none;
-  color: #d9534f; /* Червонуватий колір для кнопки виходу */
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  background-color: var(--green);
   font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  text-align: left;
-  padding: 0;
-  transition: opacity 0.2s ease;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
 }
 
-.logoutBtn:hover {
-  opacity: 0.8;
+.compactButton:hover,
+.compactButton:focus-visible {
+  color: var(--white);
+  background-color: var(--green-darker);
 }
 
-/* Перелаштування в горизонтальний ряд на десктопах */
-@media (min-width: 1024px) {
-  .authNav {
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    width: auto;
+/* Авторизаційна частина відкритого burger-меню */
+
+.menuAuth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.menuAuth > a:not(.compactButton) {
+  position: relative;
+  display: inline-block;
+}
+
+.menuAuth > a:not(.compactButton)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+
+.menuAuth > a:not(.compactButton):hover::after,
+.menuAuth > a:not(.compactButton):focus-visible::after {
+  transform: scaleX(1);
+}
+
+.mobileMenuAction {
+  display: block;
+}
+
+.loginBtn {
+  border: none !important;
+  background-color: transparent;
+
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: normal !important;
+  overflow: visible !important;
+
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* Tablet */
+
+@media screen and (min-width: 768px) {
+  .unauthenticated,
+  .authenticated {
+    gap: 16px;
   }
 
-  .loginLink,
-  .userLink {
-    font-size: 14px;
+  .createBtnWrapper {
+    display: block;
   }
 
-  .logoutBtn {
-    font-size: 14px;
+  /* На планшеті основна CTA вже знаходиться біля burger-кнопки. */
+
+  .mobileMenuAction {
+    display: none;
+  }
+}
+
+/* Desktop */
+
+@media screen and (min-width: 1440px) {
+  .unauthenticated,
+  .authenticated {
+    gap: 16px;
+  }
+
+  .createBtnWrapper {
+    display: block;
   }
 }

@@ -1,19 +1,17 @@
 import Container from "@/components/common/Container/Container";
 import Link from "next/link";
+import MobileMenu from "@/components/layout/MobileMenu/MobileMenu";
 
 import css from "./Header.module.css";
 import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
+import Logo from "@/components/common/Logo/Logo";
 
 export default function Header() {
   return (
     <header className={css.header}>
-      <Container>
-        {/* Логотип */}
-        <Link href="/" aria-label="Home" className={css.logo}>
-          harmoniq
-        </Link>
+      <Container className="container">
+        <Logo />
 
-        {/* Основна навігація */}
         <nav aria-label="Main Navigation">
           <ul className={css.navigation}>
             <li>
@@ -23,7 +21,7 @@ export default function Header() {
             </li>
             <li>
               <Link href="/articles" className={css.navLink}>
-                + Articles
+                Articles
               </Link>
             </li>
             <li>
@@ -32,14 +30,21 @@ export default function Header() {
               </Link>
             </li>
 
-            {/* Компонент авторизації / профілю */}
+            <AuthNavigation variant="nav" className={css.navLink} />
+
             <li className={css.authItem}>
               <AuthNavigation />
             </li>
           </ul>
         </nav>
-        {/* 2. Вставляємо MobileMenu тут
-        <MobileMenu /> */}
+
+        <div className={css.tabletControls}>
+          <div className={css.tabletAction}>
+            <AuthNavigation variant="tablet" />
+          </div>
+
+          <MobileMenu />
+        </div>
       </Container>
     </header>
   );

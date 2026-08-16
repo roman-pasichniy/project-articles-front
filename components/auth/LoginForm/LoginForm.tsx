@@ -9,6 +9,7 @@ import * as Yup from "yup";
 
 import Button from "@/components/common/Button/Button";
 import { useLogin } from "@/hooks/useLogin";
+import { useAuthStore } from "@/store/authStore";
 import type { LoginCredentials } from "@/types/auth";
 
 import styles from "./LoginForm.module.css";
@@ -31,12 +32,15 @@ export default function LoginForm() {
 
   const router = useRouter();
 
+  const setUser = useAuthStore((state) => state.setUser);
+
   const { mutateAsync: login, isPending } = useLogin();
 
   const handleSubmit = async (values: LoginCredentials) => {
     try {
-      await login(values);
+      const userData = await login(values);
 
+      setUser(userData);
       router.replace("/");
     } catch (error) {
       const message =

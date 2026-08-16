@@ -1,25 +1,32 @@
 import Container from "@/components/common/Container/Container";
+import ArticlesItem from "@/components/articles/ArticlesItem/ArticlesItem";
+import { getPopularArticles } from "@/lib/api/articles";
 import Link from "next/link";
 import styles from "./PopularArticles.module.css";
 
-const placeholders = ["Article one", "Article two", "Article three"];
-
-export default function PopularArticles() {
+export default async function PopularArticles() {
+  const articles = await getPopularArticles();
   return (
     <section className={styles.section} id="popular-articles">
       <Container>
         <div className={styles.heading}>
           <h2 className={styles.title}>Popular Articles</h2>
+
           <Link className={styles.link} href="/articles">
-            See all articles
+            Go to all Articles
+            <svg className={styles.arrow} aria-hidden="true">
+              <use href="/icons/sprite.svg#icon-right-arrow-up" />
+            </svg>
           </Link>
         </div>
+
         <ul className={styles.list}>
-          {placeholders.map((article) => (
-            <li className={styles.card} key={article}>
-              <div className={styles.imagePlaceholder} aria-hidden="true" />
-              <h3>{article}</h3>
-              <p>Article card placeholder for future API data.</p>
+          {articles.map((article, index) => (
+            <li
+              key={article._id}
+              className={index === 3 ? styles.fourthCard : undefined}
+            >
+              <ArticlesItem article={article} />
             </li>
           ))}
         </ul>

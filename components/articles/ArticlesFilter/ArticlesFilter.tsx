@@ -1,5 +1,34 @@
+"use client";
+
 import styles from "./ArticlesFilter.module.css";
 
-export default function ArticlesFilter() {
-  return <div className={styles.filter} aria-label="Article filters">Article filters</div>;
+export type Category = "all" | "popular" | "general";
+
+type ArticlesFilterProps = {
+  category: Category;
+  onCategoryChange: (value: Category) => void;
+};
+
+export default function ArticlesFilter({
+  category,
+  onCategoryChange,
+}: ArticlesFilterProps) {
+  return (
+    <div className={styles.filter}>
+      <label className={styles.field}>
+        <span className={styles.visuallyHidden}>Filter by category</span>
+
+        <select
+          className={styles.select}
+          value={category}
+          aria-label="Filter articles by category"
+          onChange={(event) => onCategoryChange(event.target.value as Category)}
+        >
+          <option value="all">All</option>
+          <option value="popular">Popular</option>
+          <option value="general">General</option>
+        </select>
+      </label>
+    </div>
+  );
 }

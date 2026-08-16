@@ -1,46 +1,51 @@
 import type { Metadata } from "next";
 import { DM_Sans, Manrope, Noto_Sans } from "next/font/google";
-import type { ReactNode } from "react";
-import Footer from "@/components/layout/Footer/Footer";
-import Header from "@/components/layout/Header/Header";
 import { QueryProvider } from "@/providers/QueryProvider";
 import "./globals.css";
+import Header from "@/components/layout/Header/Header";
+import Footer from "@/components/layout/Footer/Footer";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import { Merienda } from "next/font/google";
 
 const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
   variable: "--font-manrope",
+  subsets: ["latin", "cyrillic"],
 });
 
 const dmSans = DM_Sans({
-  subsets: ["latin"],
   variable: "--font-dm-sans",
+  subsets: ["latin"],
 });
 
 const notoSans = Noto_Sans({
-  subsets: ["latin", "cyrillic"],
   variable: "--font-noto-sans",
+  subsets: ["latin", "cyrillic"],
+});
+
+const merienda = Merienda({
+  variable: "--font-merienda",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Harmoniq",
-  description: "Платформа для публікацій про баланс та well-being.",
+  title: "harmoniq",
+  description: "Find your harmony in community",
 };
 
-type RootLayoutProps = Readonly<{
-  children: ReactNode;
-}>;
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="uk">
-      <body
-        className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable}`}
-      >
-        <Header />
-        <main>
-          <QueryProvider>{children}</QueryProvider>
-        </main>
-        <Footer />
+    <html
+      lang="uk"
+      className={`${manrope.variable} ${dmSans.variable} ${notoSans.variable} ${merienda.variable}`}
+    >
+      <body>
+        <QueryProvider>
+          <AuthProvider>
+            <Header />
+            {children}
+            <Footer />
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );
