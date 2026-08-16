@@ -54,9 +54,8 @@ export default function AddArticleForm() {
         const formData = new FormData();
 
         formData.append("title", values.title);
-        formData.append("description", values.description);
+        formData.append("article", values.description);
         formData.append("date", values.date);
-        formData.append("author", "Test Author");
 
         if (values.photo) {
           formData.append("photo", values.photo);

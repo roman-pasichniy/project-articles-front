@@ -12,10 +12,10 @@ export default function ArticlesItem({ article }: ArticlesItemProps) {
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
-        {article.photo ? (
+        {article.img ? (
           <Image
             className={styles.image}
-            src={article.photo}
+            src={article.img}
             alt={article.title}
             fill
             sizes="(max-width: 767px) 50vw, (max-width: 1439px) 33vw, 33vw"
@@ -26,18 +26,13 @@ export default function ArticlesItem({ article }: ArticlesItemProps) {
       </div>
 
       <div className={styles.textContent}>
-        <p className={styles.author}>{article.author?.split(" ")[0] ?? ""}</p>
-
         <h3 className={styles.title}>{article.title}</h3>
 
-        <p className={styles.description}>{article.description}</p>
+        <p className={styles.description}>{article.desc}</p>
       </div>
 
       <div className={styles.actions}>
-        <Link
-          className={styles.learnMore}
-          href={`/articles/${article._id}`}
-        >
+        <Link className={styles.learnMore} href={`/articles/${article._id}`}>
           Learn more
         </Link>
 

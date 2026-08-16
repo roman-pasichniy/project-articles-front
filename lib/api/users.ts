@@ -19,7 +19,7 @@ export async function getUserById(userId: string) {
 export async function getUserArticles(
   userId: string,
   page = 1,
-  perPage = 10,
+  perPage = 12,
 ): Promise<UserArticlesResponse> {
   const searchParams = new URLSearchParams({
     page: String(page),
