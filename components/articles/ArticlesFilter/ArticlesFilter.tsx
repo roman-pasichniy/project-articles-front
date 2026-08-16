@@ -2,7 +2,7 @@
 
 import styles from "./ArticlesFilter.module.css";
 
-export type Category = "all" | "popular" | "general";
+export type Category = "all" | "popular";
 
 type ArticlesFilterProps = {
   category: Category;
@@ -26,7 +26,6 @@ export default function ArticlesFilter({
         >
           <option value="all">All</option>
           <option value="popular">Popular</option>
-          <option value="general">General</option>
         </select>
       </label>
     </div>

@@ -59,9 +59,7 @@ export default async function ArticleRecommendations({
                     {recommendation.title}
                   </strong>
 
-                  <span className={styles.cardAuthor}>
-                    {recommendation.author ?? "Автор невідомий"}
-                  </span>
+                  <span className={styles.cardAuthor}>Автор невідомий</span>
                 </span>
 
                 <span className={styles.arrow} aria-hidden="true">
