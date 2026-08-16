@@ -18,7 +18,7 @@ export default function AuthorsItem({ author }: AuthorsItemProps) {
             fill
             sizes="(max-width: 768px) 148px, 262px"
             className={styles.photo}
-         />
+          />
         </div>
         <h3 className={styles.name}>{author.name}</h3>
       </article>
