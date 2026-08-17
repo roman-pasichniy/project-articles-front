@@ -66,7 +66,7 @@ export default function AddArticleForm() {
 
           toast.success("Article created successfully!");
 
-          router.push(`/articles/${result.data._id}`);
+          router.replace(`/articles/${result.data._id}`);
         } catch (error) {
           console.error("Create article error:", error);
 
