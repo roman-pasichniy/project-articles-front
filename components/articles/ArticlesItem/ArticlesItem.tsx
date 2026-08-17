@@ -3,25 +3,26 @@ import Link from "next/link";
 import ButtonAddToBookmarks from "../ButtonAddToBookmarks/ButtonAddToBookmarks";
 import styles from "./ArticlesItem.module.css";
 
-type ArticleItemData = {
+type ArticlesItemData = {
   _id: string;
-  img?: string;
+  photo: string;
   title: string;
-  desc: string;
+  description: string;
+  author: string | null;
 };
 
 type ArticlesItemProps = {
-  article: ArticleItemData;
+  article: ArticlesItemData;
 };
 
 export default function ArticlesItem({ article }: ArticlesItemProps) {
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
-        {article.img ? (
+        {article.photo ? (
           <Image
             className={styles.image}
-            src={article.img}
+            src={article.photo}
             alt={article.title}
             fill
             sizes="(max-width: 767px) 50vw, (max-width: 1439px) 33vw, 33vw"
@@ -32,9 +33,13 @@ export default function ArticlesItem({ article }: ArticlesItemProps) {
       </div>
 
       <div className={styles.textContent}>
+        <p className={styles.author}>
+          {article.author?.split(" ")[0] ?? ""}
+        </p>
+
         <h3 className={styles.title}>{article.title}</h3>
 
-        <p className={styles.description}>{article.desc}</p>
+        <p className={styles.description}>{article.description}</p>
       </div>
 
       <div className={styles.actions}>

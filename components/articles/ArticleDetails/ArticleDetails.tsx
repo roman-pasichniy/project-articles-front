@@ -12,7 +12,7 @@ export default function ArticleDetails({
   article,
   sidebar,
 }: ArticleDetailsProps) {
-  const content = article.article.replaceAll("/n", "\n");
+  const content = article.content.replaceAll("/n", "\n");
 
   return (
     <article className={styles.article}>
@@ -20,13 +20,13 @@ export default function ArticleDetails({
 
       <div className={styles.imageWrapper}>
         <Image
-          className={styles.image}
-          src={article.img}
-          alt={article.title}
-          fill
-          priority
-          sizes="(max-width: 767px) 100vw, 1225px"
-        />
+        className={styles.image}
+        src={article.photo}
+        alt={article.title}
+        fill
+        priority
+        sizes="(max-width: 767px) 100vw, 1225px"
+      />
       </div>
 
       <div className={styles.layout}>

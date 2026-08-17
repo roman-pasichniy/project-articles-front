@@ -10,27 +10,17 @@
 // };
 export type Category = "popular" | "general";
 
-export type ArticleOwner =
-  | string
-  | null
-  | {
-      _id: string;
-      name: string;
-      avatarUrl?: string;
-    };
-
 export type Article = {
   _id: string;
+  photo: string;
   title: string;
-  desc: string;
-  article: string;
-  img: string;
-  rate: number;
+  description: string;
+  content?: string;
+  rate?: number;
+  ownerId: string | null;
   date: string;
+  author: string | null;
   category: Category;
-  ownerId: ArticleOwner;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type ArticlesResponse = {
@@ -44,18 +34,17 @@ export type ArticlesResponse = {
 export type GetArticlesParams = {
   page?: number;
   perPage?: number;
-  category?: "popular" | "all";
+  category?: Category;
   sortBy?: "date" | "rate" | "title";
   sortOrder?: "asc" | "desc";
 };
 
 export type UserArticle = {
   _id: string;
-  img: string;
   title: string;
-  desc: string;
-  article: string;
-  rate: number;
+  description: string;
+  photo: string;
+  author: string;
   ownerId: string;
   date: string;
 };
