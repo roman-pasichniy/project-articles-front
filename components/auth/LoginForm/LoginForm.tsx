@@ -39,7 +39,13 @@ export default function LoginForm() {
   const handleSubmit = async (values: LoginCredentials) => {
     try {
       const userData = await login(values);
+
       setUser(userData);
+
+      if (userData.avatarUrl === "https://goit.global") {
+        router.replace("/photo");
+        return;
+      }
 
       router.replace("/");
     } catch (error) {

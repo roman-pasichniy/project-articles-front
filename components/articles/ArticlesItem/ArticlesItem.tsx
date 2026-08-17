@@ -5,7 +5,7 @@ import styles from "./ArticlesItem.module.css";
 
 type ArticleItemData = {
   _id: string;
-  img: string;
+  img?: string;
   title: string;
   desc: string;
 };
