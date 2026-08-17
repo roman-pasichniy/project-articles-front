@@ -41,6 +41,12 @@ export default function LoginForm() {
       const userData = await login(values);
 
       setUser(userData);
+
+      if (userData.avatarUrl === "https://goit.global") {
+        router.replace("/photo");
+        return;
+      }
+
       router.replace("/");
     } catch (error) {
       const message =
