@@ -78,7 +78,7 @@ export default function RegisterForm() {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className={styles.form}>
+          <Form className={styles.form} autoComplete="off">
             <h1 className={styles.title}>Register</h1>
 
             <p className={styles.description}>
@@ -97,6 +97,7 @@ export default function RegisterForm() {
                 type="text"
                 placeholder="Max"
                 className={styles.input}
+                autoComplete="off"
               />
 
               <ErrorMessage
@@ -116,6 +117,7 @@ export default function RegisterForm() {
                 type="email"
                 placeholder="email@gmail.com"
                 className={styles.input}
+                autoComplete="off"
               />
 
               <ErrorMessage
@@ -136,6 +138,7 @@ export default function RegisterForm() {
                   type={showPassword ? "text" : "password"}
                   placeholder="********"
                   className={styles.input}
+                  autoComplete="new-password"
                 />
 
                 <button
@@ -171,6 +174,7 @@ export default function RegisterForm() {
                   type={showRepeatPassword ? "text" : "password"}
                   placeholder="********"
                   className={styles.input}
+                  autoComplete="new-password"
                 />
 
                 <button
