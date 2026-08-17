@@ -1,11 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import ButtonAddToBookmarks from "../ButtonAddToBookmarks/ButtonAddToBookmarks";
-import type { Article } from "@/types/article";
 import styles from "./ArticlesItem.module.css";
 
+type ArticlesItemData = {
+  _id: string;
+  photo: string;
+  title: string;
+  description: string;
+  author: string | null;
+};
+
 type ArticlesItemProps = {
-  article: Article;
+  article: ArticlesItemData;
 };
 
 export default function ArticlesItem({ article }: ArticlesItemProps) {
