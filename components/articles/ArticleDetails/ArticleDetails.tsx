@@ -21,7 +21,7 @@ export default function ArticleDetails({ articleId }: ArticleDetailsProps) {
         if (!res.ok) return;
 
         const data = await res.json();
-        setArticleData(data); 
+        setArticleData(data);
       } catch (err) {
         console.error("Error fetching article details:", err);
       }
@@ -32,7 +32,7 @@ export default function ArticleDetails({ articleId }: ArticleDetailsProps) {
 
   if (!articleData) return null;
 
-  const contentText = articleData.article || articleData.desc || "";
+  const contentText = articleData.content || articleData.description || "";
   const lines = contentText.split("\n");
 
   const formattedContent = lines.map((line, index) => (
@@ -46,14 +46,14 @@ export default function ArticleDetails({ articleId }: ArticleDetailsProps) {
     <article className={css.container}>
       <h1 className={css.title}>{articleData.title}</h1>
 
-<div className={css.imageWrapper}>
-  {/* eslint-disable-next-line @next/next/no-img-element */}
-  <img
-    src={articleData.img}
-    alt={articleData.title}
-    className={css.image}
-  />
-</div>
+      <div className={css.imageWrapper}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={articleData.photo}
+          alt={articleData.title}
+          className={css.image}
+        />
+      </div>
 
       <div className={css.description}>{formattedContent}</div>
     </article>

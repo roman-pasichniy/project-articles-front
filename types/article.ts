@@ -9,6 +9,11 @@ export type Article = {
   date: string;
   author?: string;
   category?: "popular" | "general";
+  owner?: {
+    _id: string;
+    name: string;
+    avatarUrl?: string;
+  } | null;
 };
 
 export type ArticlesResponse = {
@@ -49,10 +54,10 @@ export type UserArticlesResponse = {
 
 export type ArticleDetails = {
   _id: string;
-  img: string;
+  photo: string;
   title: string;
-  desc: string;
-  article: string;
+  description: string;
+  content: string;
   rate: number;
   date: string;
   owner: {

@@ -24,7 +24,7 @@ const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 const handleClose = () => {
   router.back();
 };
-const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
   if (!file) {
@@ -32,30 +32,46 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     return;
   }
 
-    const savedDataString = localStorage.getItem('registerData');
-    const savedData = savedDataString ? JSON.parse(savedDataString) : {};
+  const savedDataString = localStorage.getItem('registerData');
+  const savedData = savedDataString ? JSON.parse(savedDataString) : {};
 
-const formData = new FormData();
-    if (savedData.name) formData.append('name', savedData.name);
-    if (savedData.email) formData.append('email', savedData.email);
-    if (savedData.password) formData.append('password', savedData.password);
-    formData.append('avatar', file);
   try {
-    const response = await fetch(`${baseUrl}/auth/register`, {
+    // Крок 1 — реєстрація (без файлу, звичайний JSON)
+    const registerResponse = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
-      body: formData,
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // важливо — щоб браузер прийняв і зберіг cookie сесії
+      body: JSON.stringify({
+        name: savedData.name,
+        email: savedData.email,
+        password: savedData.password,
+      }),
     });
 
-    const data = await response.json();
+    const registerData = await registerResponse.json();
 
-    if (!response.ok) {
-      throw new Error(data.message || 'Registration failed');
+    if (!registerResponse.ok) {
+      throw new Error(registerData.message || 'Registration failed');
     }
 
-localStorage.removeItem('registerData');
+    // Крок 2 — завантаження аватарки (окремий запит, вже під сесією з кроку 1)
+    const avatarFormData = new FormData();
+    avatarFormData.append('avatar', file);
 
+    const avatarResponse = await fetch(`${baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      credentials: 'include', // обов'язково — щоб cookie сесії пішла разом із запитом
+      body: avatarFormData,
+    });
+
+    if (!avatarResponse.ok) {
+      const avatarData = await avatarResponse.json();
+      throw new Error(avatarData.message || 'Avatar upload failed');
+    }
+
+    localStorage.removeItem('registerData');
     toast.success('Successfully registered!');
-    router.push('/home-authorised'); 
+    router.push('/home-authorised');
   } catch (error) {
     toast.error((error as Error).message || 'Something went wrong...');
   }
