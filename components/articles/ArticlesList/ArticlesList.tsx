@@ -1,15 +1,15 @@
 "use client";
 
 import { useRef, useState } from "react";
-import ArticlesFilter from "../ArticlesFilter/ArticlesFilter";
+import ArticlesFilter, {
+  type Category,
+} from "../ArticlesFilter/ArticlesFilter";
 import ArticlesItem from "../ArticlesItem/ArticlesItem";
 import Loader from "@/components/common/Loader/Loader";
 import { useInfiniteArticles } from "@/hooks/useInfiniteArticles";
 import styles from "./ArticlesList.module.css";
 
 const ARTICLES_PER_PAGE = 12;
-
-type Category = "all" | "popular";
 
 export default function ArticlesList() {
   const [category, setCategory] = useState<Category>("all");
@@ -25,7 +25,7 @@ export default function ArticlesList() {
     error,
   } = useInfiniteArticles({
     perPage: ARTICLES_PER_PAGE,
-    ...(category === "popular" ? { category: "popular" } : {}),
+    ...(category !== "all" ? { category } : {}),
   });
 
   const changeCategory = (value: Category) => {

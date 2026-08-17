@@ -1,3 +1,15 @@
+// export type Article = {
+//   _id: string;
+//   img: string;
+//   title: string;
+//   desc: string;
+//   article: string;
+//   rate: number;
+//   ownerId: string;
+//   date: string;
+// };
+export type Category = "popular" | "general";
+
 export type Article = {
   _id: string;
   photo: string;
@@ -5,10 +17,10 @@ export type Article = {
   description: string;
   content?: string;
   rate?: number;
-  ownerId: string;
+  ownerId: string | null;
   date: string;
-  author?: string;
-  category?: "popular" | "general";
+  author?: string | null;
+  category: Category;
   owner?: {
     _id: string;
     name: string;
@@ -27,7 +39,7 @@ export type ArticlesResponse = {
 export type GetArticlesParams = {
   page?: number;
   perPage?: number;
-  category?: "popular" | "general";
+  category?: Category;
   sortBy?: "date" | "rate" | "title";
   sortOrder?: "asc" | "desc";
 };
@@ -60,6 +72,7 @@ export type ArticleDetails = {
   content: string;
   rate: number;
   date: string;
+  category: Category;
   owner: {
     _id: string;
     name: string;

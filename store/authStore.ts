@@ -31,38 +31,64 @@ export const useAuthStore = create<AuthState>()(
         set({
           user: cleanUser,
           isLoggedIn: Boolean(cleanUser),
+          error: null,
         });
       },
+
       setLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
 
       fetchCurrentUser: async () => {
         const currentUser = get().user;
-        if (!currentUser?._id) return;
 
-        set({ isLoading: true, error: null });
+        if (!currentUser?._id) {
+          return;
+        }
+
+        set({
+          isLoading: true,
+          error: null,
+        });
+
         try {
           const freshUserData = await getUserById(currentUser._id);
-          if (freshUserData) {
-            const cleanUser =
-              "user" in freshUserData ? freshUserData.user : freshUserData;
 
-            set({ user: cleanUser, isLoggedIn: true });
+          const cleanUser =
+            freshUserData && "user" in freshUserData
+              ? freshUserData.user
+              : freshUserData;
+
+          if (cleanUser) {
+            set({
+              user: cleanUser,
+              isLoggedIn: true,
+              error: null,
+            });
           }
         } catch (err) {
           const errorMessage =
             err instanceof Error ? err.message : "Failed to fetch user";
-          set({ error: errorMessage });
+
+          set({
+            error: errorMessage,
+          });
         } finally {
-          set({ isLoading: false });
+          set({
+            isLoading: false,
+          });
         }
       },
 
       logout: () => {
-        set({ user: null, isLoggedIn: false, error: null });
+        set({
+          user: null,
+          isLoggedIn: false,
+          error: null,
+        });
       },
     }),
     {
       name: "auth-storage",
+
       partialize: (state) => ({
         user: state.user,
         isLoggedIn: state.isLoggedIn,

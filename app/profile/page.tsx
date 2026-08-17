@@ -16,9 +16,13 @@ export default async function ProfilePage({
       <section className={styles.main}>
         <Container>
           <h1 className={styles.title}>My profile</h1>
+
           <ProfileHeader />
+
           <ProfileTabs />
+
           <p className={styles.activeTab}>Active tab: {tab}</p>
+
           {tab === "my-articles" ? <MyArticles /> : <SavedArticles />}
         </Container>
       </section>

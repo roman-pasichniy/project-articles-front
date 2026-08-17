@@ -10,8 +10,6 @@ import type { InputEvent } from "react";
 import Image from "next/image";
 import styles from "./AddArticleForm.module.css";
 
-const currentDate = new Date().toISOString().split("T")[0];
-
 const validationSchema = Yup.object({
   title: Yup.string()
     .trim()
@@ -21,13 +19,9 @@ const validationSchema = Yup.object({
 
   description: Yup.string()
     .trim()
-    .min(100, "Description must be at least 100 characters")
-    .max(4000, "Description must be at most 4000 characters")
-    .required("Description is required"),
-
-  date: Yup.string()
-    .matches(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format")
-    .required("Date is required"),
+    .min(100, "Article must be at least 100 characters")
+    .max(4000, "Article must be at most 4000 characters")
+    .required("Article is required"),
 
   photo: Yup.mixed<File>()
     .required("Photo is required")
@@ -41,36 +35,44 @@ const validationSchema = Yup.object({
 export default function AddArticleForm() {
   const router = useRouter();
   const [preview, setPreview] = useState<string | null>(null);
+
   return (
     <Formik
       initialValues={{
         title: "",
         description: "",
-        photo: null,
-        date: currentDate,
+        photo: null as File | null,
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
+        if (!values.photo) {
+          toast.error("Photo is required");
+          return;
+        }
+
         const formData = new FormData();
 
-        formData.append("title", values.title);
-        formData.append("description", values.description);
-        formData.append("date", values.date);
-        formData.append("author", "Test Author");
+        formData.append("title", values.title.trim());
+        formData.append("article", values.description.trim());
 
-        if (values.photo) {
-          formData.append("photo", values.photo);
-        }
+        // Backend expects "img"
+        formData.append("img", values.photo);
+
+        // Default article category
+        formData.append("category", "general");
 
         try {
           const result = await createArticle(formData);
 
           toast.success("Article created successfully!");
 
-          router.push(`/articles/${result.data._id}`);
+          router.replace(`/articles/${result.data._id}`);
         } catch (error) {
-          toast.error("Failed to create article");
           console.error("Create article error:", error);
+
+          toast.error(
+            error instanceof Error ? error.message : "Failed to create article",
+          );
         }
       }}
     >
@@ -84,8 +86,10 @@ export default function AddArticleForm() {
               accept="image/*"
               className={styles.fileInput}
               onChange={(event) => {
-                const file = event.currentTarget.files?.[0];
-                setFieldValue("photo", file ?? null);
+                const file = event.currentTarget.files?.[0] ?? null;
+
+                setFieldValue("photo", file);
+
                 if (file) {
                   setPreview(URL.createObjectURL(file));
                 } else {
@@ -148,6 +152,7 @@ export default function AddArticleForm() {
                 textarea.scrollTop = 0;
               }}
             />
+
             <ErrorMessage
               name="description"
               component="div"

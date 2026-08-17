@@ -1,10 +1,56 @@
 import type {
+  Article,
   ArticleDetails,
   ArticlesResponse,
   GetArticlesParams,
+  Category,
 } from "@/types/article";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+
+type RawArticle = {
+  _id?: string;
+  photo?: string;
+  title?: string;
+  description?: string;
+  content?: string;
+  rate?: number;
+  ownerId?: string | null;
+  date?: string;
+  author?: string | null;
+  category?: Category;
+  owner?: {
+    _id: string;
+    name: string;
+    avatarUrl?: string;
+  } | null;
+};
+
+const mapArticle = (article: RawArticle): Article => ({
+  _id: article._id ?? "",
+  photo: article.photo ?? "",
+  title: article.title ?? "",
+  description: article.description ?? "",
+  content: article.content ?? "",
+  rate: article.rate ?? 0,
+  ownerId: article.ownerId ?? article.owner?._id ?? null,
+  date: article.date ?? "",
+  author: article.author ?? null,
+  category: article.category ?? "general",
+});
+
+const mapArticleDetails = (article: RawArticle): ArticleDetails => ({
+  _id: article._id ?? "",
+  photo: article.photo ?? "",
+  title: article.title ?? "",
+  description: article.description ?? "",
+  content: article.content ?? "",
+  rate: article.rate ?? 0,
+  date: article.date ?? "",
+  category: article.category ?? "general",
+  owner: article.owner ?? null,
+});
 
 export async function getArticles(
   params: GetArticlesParams = {},
@@ -47,18 +93,18 @@ export async function getArticles(
     );
   }
 
-  return data as ArticlesResponse;
+  return {
+    ...data,
+    data: Array.isArray(data?.data) ? data.data.map(mapArticle) : [],
+  } as ArticlesResponse;
 }
 
-export async function getPopularArticles() {
+export async function getPopularArticles(): Promise<Article[]> {
   const response = await getArticles({
     page: 1,
     perPage: 4,
     category: "popular",
   });
-
-  console.log("POPULAR API RESPONSE:", response);
-  console.log("POPULAR ARTICLES:", response.data);
 
   return response.data;
 }
@@ -107,7 +153,7 @@ export async function getArticleById(
     );
   }
 
-  return data as ArticleDetails;
+  return mapArticleDetails(data);
 }
 
 export async function addArticleToBookmarks(articleId: string) {
