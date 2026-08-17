@@ -1,5 +1,6 @@
 .section {
   width: 100%;
+  padding: 0 16px;
 }
 
 .panel {
@@ -78,13 +79,16 @@
 .saveButton {
   display: flex;
   height: 57px;
+  width: 100%;
   align-items: center;
   justify-content: center;
   gap: 8px;
   margin-top: 16px;
-  border-radius: 64px;
+  border-radius: 25px;
   background-color: var(--green);
   color: var(--white);
+  margin-bottom: 48px;
+  border: none;
 }
 
 .saveButton > button {
@@ -94,8 +98,24 @@
   border: 0;
   color: inherit;
 }
-@media screen and (max-width: 767px) {
-  .panel {
-    padding: 24px 16px 32px;
+
+.iconHome {
+    fill: #649179;
+    stroke: white;
+    width: 24px;
+    height: 24px;
+}
+@media screen and (min-width: 767px) {
+.section {
+  padding: 0 32px;
+  
+}
+
+@media screen and (min-width: 1440px) {
+  .section {
+    grid-area: sidebar;
+    padding-right: 107.5px;
   }
+
+}
 }

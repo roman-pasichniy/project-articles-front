@@ -1,40 +1,23 @@
-import { notFound } from "next/navigation";
 import ArticleDetails from "@/components/articles/ArticleDetails/ArticleDetails";
-import Container from "@/components/common/Container/Container";
-import { ArticlesApiError, getArticleById } from "@/lib/api/articles";
-import styles from "./page.module.css";
 import ArticleRecommendations from "@/components/articles/ArticleRecommendations/ArticleRecommendations";
+import css from "./page.module.css";
 
-type ArticlePageProps = {
+interface PageProps {
   params: Promise<{ articleId: string }>;
-};
+}
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
+export default async function ArticlePage({ params }: PageProps) {
   const { articleId } = await params;
 
-  let article;
-
-  try {
-    article = await getArticleById(articleId);
-  } catch (error) {
-    if (
-      error instanceof ArticlesApiError &&
-      (error.status === 400 || error.status === 404)
-    ) {
-      notFound();
-    }
-
-    throw error;
-  }
-
   return (
-    <main className={styles.main}>
-      <Container>
-        <ArticleDetails
-          article={article}
-          sidebar={<ArticleRecommendations article={article} />}
-        />
-      </Container>
-    </main>
+    <div className={css.page}>
+      <main className={css.main}>
+        <ArticleDetails articleId={articleId} />
+      </main>
+
+      <aside className={css.aside}>
+        <ArticleRecommendations currentArticleId={articleId} />
+      </aside>
+    </div>
   );
 }

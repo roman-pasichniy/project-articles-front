@@ -19,8 +19,13 @@ export type Article = {
   rate?: number;
   ownerId: string | null;
   date: string;
-  author: string | null;
+  author?: string | null;
   category: Category;
+  owner?: {
+    _id: string;
+    name: string;
+    avatarUrl?: string;
+  } | null;
 };
 
 export type ArticlesResponse = {
