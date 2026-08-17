@@ -72,10 +72,10 @@ export type UserArticlesResponse = {
 
 export type ArticleDetails = {
   _id: string;
-  img: string;
+  photo: string;
   title: string;
-  desc: string;
-  article: string;
+  description: string;
+  content: string;
   rate: number;
   date: string;
   category: Category;

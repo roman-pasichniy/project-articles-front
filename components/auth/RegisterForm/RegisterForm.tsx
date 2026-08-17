@@ -60,7 +60,7 @@ export default function RegisterForm() {
 
       toast.success("Account created successfully");
       resetForm();
-      router.push("/login");
+      router.push("/photo");
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : "Registration failed",
